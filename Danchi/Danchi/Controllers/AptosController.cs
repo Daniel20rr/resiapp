@@ -1,0 +1,135 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Net;
+using System.Web;
+using System.Web.Mvc;
+using ResiApp.Context;
+using ResiApp.Models;
+using ResiApp.Security;
+using ResiApp.Services;
+using ResiApp.Utils;
+
+namespace ResiApp.Controllers
+{
+    [Authorize]
+    public class AptosController : Controller
+    {
+        private readonly ResiAppDBContext _db;
+
+        public AptosController(ResiAppDBContext db)
+        {
+            _db = db;
+        }
+
+        [AuthorizeRole("Administrador")]
+        public async Task<ActionResult> Index()
+        {
+            var aptos = _db.Aptos.Include(a => a.Torre);
+            return View(await aptos.ToListAsync());
+        }
+
+        [AuthorizeRole("Administrador")]
+        public ActionResult Create()
+        {
+            ViewBag.IdTorre = new SelectList(_db.Torres, "IdTorre", "NombreTorre");
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Create(Apto apto)
+        {
+            if (ModelState.IsValid)
+            {
+                apto.UsuarioCreacion = SessionHelper.UserId.Value;
+                _db.Aptos.Add(apto);
+                await _db.SaveChangesAsync();
+                TempData["SuccessMessage"] = "Apto guardado exitosamente";
+                return RedirectToAction("Index");
+            }
+
+            ViewBag.IdTorre = new SelectList(_db.Torres, "IdTorre", "NombreTorre", apto.IdTorre);
+            return View(apto);
+        }
+
+        [AuthorizeRole("Administrador")]
+        public async Task<ActionResult> Edit(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Apto apto = await _db.Aptos.FindAsync(id);
+            if (apto == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.IdTorre = new SelectList(_db.Torres, "IdTorre", "NombreTorre", apto.IdTorre);
+            return View(apto);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Edit(Apto apto)
+        {
+            if (ModelState.IsValid)
+            {
+                apto.UsuarioModificacion = SessionHelper.UserId.Value;
+                apto.FechaModificacion = DateTime.Now;
+                _db.Entry(apto).State = EntityState.Modified;
+                TempData["SuccessMessage"] = "Apto actualizado exitosamente";
+                await _db.SaveChangesAsync();
+                return RedirectToAction("Index");
+            }
+            ViewBag.IdTorre = new SelectList(_db.Torres, "IdTorre", "NombreTorre", apto.IdTorre);
+            return View(apto);
+        }
+
+        [AuthorizeRole("Administrador")]
+        public async Task<ActionResult> Delete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Apto apto = await _db.Aptos.FindAsync(id);
+            if (apto == null)
+            {
+                return HttpNotFound();
+            }
+            return View(apto);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Delete(int id)
+        {
+            var apto = await _db.Aptos.FindAsync(id);
+
+            // Verifica si hay propietarios asociados a este apartamento
+            if (_db.Propietarios.Any(p => p.IdApto == apto.IdApto))
+            {
+                TempData["ErrorMessage"] = "No se puede eliminar el apartamento porque tiene propietarios asociados. Elimina o reasigna primero los propietarios relacionados.";
+                return RedirectToAction("Index");
+            }
+
+            _db.Aptos.Remove(apto);
+            await _db.SaveChangesAsync();
+            TempData["SuccessMessage"] = "Apartamento eliminado exitosamente";
+            return RedirectToAction("Index");
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                _db.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+    }
+}
