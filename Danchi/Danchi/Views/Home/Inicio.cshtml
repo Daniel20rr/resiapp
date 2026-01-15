@@ -1,0 +1,89 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <title>Bienvenidos a ResiApp</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+
+    <style>
+        /* Estilos para el cuerpo y el HTML para que ocupen toda la pantalla */
+        html, body {
+            height: 100%;
+            margin: 0;
+            font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+        }
+
+        /* El contenedor principal que tendrá la imagen de fondo */
+        .hero-container {
+            height: 100vh; /* Ocupa el 100% de la altura de la pantalla */
+            /* --- ¡IMPORTANTE! --- */
+            /* Asegúrate de que esta ruta coincida con donde guardaste tu imagen */
+            background-image: url('/Content/images/inicio-background.jpg');
+            background-size: cover; /* Hace que la imagen cubra todo el espacio sin deformarse */
+            background-position: center center; /* Centra la imagen */
+            /* Usamos Flexbox para centrar el contenido fácilmente */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* La caja de contenido que va sobre la imagen */
+        .hero-content {
+            text-align: center;
+            color: white;
+            background-color: rgba(0, 0, 0, 0.6); /* Fondo oscuro semitransparente para legibilidad */
+            padding: 40px;
+            border-radius: 15px; /* Bordes redondeados */
+            max-width: 650px; /* Ancho máximo para el texto */
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4); /* Sombra sutil para darle profundidad */
+        }
+
+            .hero-content h1 {
+                font-size: 3rem; /* Tamaño del título */
+                font-weight: 700;
+                margin-bottom: 0.5rem;
+            }
+
+            .hero-content p {
+                font-size: 1.25rem; /* Tamaño del subtítulo */
+                margin-bottom: 1.5rem;
+            }
+
+        /* Estilo para el botón, basado en el diseño que te gustó */
+        .btn-portal {
+            background-color: #28a745; /* Verde del diseño */
+            border: none;
+            color: white;
+            padding: 12px 30px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 50px; /* Botón con bordes muy redondeados */
+            text-decoration: none;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+            .btn-portal:hover {
+                background-color: #218838; /* Verde un poco más oscuro al pasar el mouse */
+                color: white;
+                transform: scale(1.05); /* Efecto de crecimiento sutil */
+            }
+    </style>
+</head>
+<body>
+
+    <div class="hero-container">
+        <div class="hero-content">
+            <h1>Bienvenido a ResiApp</h1>
+            <p>La solución integral para optimizar la gestión y fortalecer la comunicación en tu Propiedad Horizontal.</p>
+            <a href="@Url.Action("Login", "Account")" class="btn-portal">Inicio Sesión</a>
+        </div>
+    </div>
+
+</body>
+</html>
