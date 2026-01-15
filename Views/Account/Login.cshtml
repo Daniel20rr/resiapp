@@ -1,0 +1,41 @@
+﻿@using ResiApp.Models
+@model Login
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Iniciar Sesión - ResiApp</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet" />
+    <link href="~/Styles/Login.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="login-card">
+        <div class="login-title">Bienvenido a <b>ResiApp</b></div>
+        <div class="login-subtitle">Plataforma para la gestión residencial</div>
+        @using (Html.BeginForm("Login", "Account", FormMethod.Post, new { @autocomplete = "off" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true, "", new { @class = "alert alert-danger", style = "text-align:center; font-weight:600;" })
+
+            <div class="form-group">
+                <i class="fas fa-envelope form-icon"></i>
+                @Html.TextBoxFor(m => m.Email, new { @class = "form-control-user", placeholder = "Correo electrónico", autofocus = "autofocus" })
+                @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger small" })
+            </div>
+            <div class="form-group">
+                <i class="fas fa-lock form-icon"></i>
+                @Html.PasswordFor(m => m.Password, new { @class = "form-control-user", placeholder = "Contraseña", id = "password" })
+                @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger small" })
+            </div>
+            <button type="submit" class="btn-user">
+                Iniciar sesión
+            </button>
+        }
+        <div class="login-footer">&copy; @DateTime.Now.Year - ResiApp</div>
+    </div>
+</body>
+</html>

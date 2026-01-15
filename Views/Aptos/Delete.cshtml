@@ -1,0 +1,158 @@
+﻿@model ResiApp.Models.Apto
+
+@{
+    ViewBag.Title = "Eliminar Apartamento";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .apto-delete-container {
+        max-width: 570px;
+        margin: 2.7rem auto 0 auto;
+        background: #fff;
+        border-radius: 0.75rem;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+        padding: 2.5rem 2.2rem 2rem 2.2rem;
+        text-align: left;
+    }
+
+    .apto-delete-title {
+        color: #1a202c;
+        font-size: 1.875rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+        letter-spacing: -0.01em;
+        text-align: center;
+    }
+
+    .apto-delete-sub {
+        color: #6b7280;
+        font-size: 1rem;
+        text-align: center;
+        margin-bottom: 2rem;
+        padding: 1rem 1.5rem;
+        background: #fef2f2;
+        border-left: 4px solid #ef4444;
+        border-radius: 0.5rem;
+    }
+
+    .apto-delete-info {
+        background: #f9fafb;
+        padding: 1.5rem;
+        border-radius: 0.5rem;
+        border: 1px solid #e5e7eb;
+    }
+
+        .apto-delete-info dt {
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 0.25rem;
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.025em;
+        }
+
+        .apto-delete-info dd {
+            margin-bottom: 1.25rem;
+            color: #1f2937;
+            font-size: 1rem;
+            margin-left: 0;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+            .apto-delete-info dd:last-of-type {
+                margin-bottom: 0;
+                padding-bottom: 0;
+                border-bottom: none;
+            }
+
+    .apto-delete-btns {
+        margin-top: 2rem;
+        display: flex;
+        gap: 0.75rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid #f3f4f6;
+    }
+
+    .btn-apto-delete {
+        background: #dc2626;
+        color: #fff;
+        font-weight: 600;
+        padding: 0.7rem 1.75rem;
+        border-radius: 0.5rem;
+        border: none;
+        font-size: 0.95rem;
+        box-shadow: 0 1px 3px rgba(220, 38, 38, 0.2);
+        transition: all 0.2s ease;
+        cursor: pointer;
+        flex: 1;
+    }
+
+        .btn-apto-delete:hover {
+            background: #b91c1c;
+            color: #fff;
+            box-shadow: 0 2px 6px rgba(220, 38, 38, 0.3);
+        }
+
+        .btn-apto-delete i {
+            margin-right: 0.5rem;
+        }
+
+    .apto-back-link {
+        color: #6b7280;
+        font-weight: 500;
+        text-decoration: none;
+        padding: 0.7rem 1.75rem;
+        border: 1px solid #d1d5db;
+        border-radius: 0.5rem;
+        background: #ffffff;
+        transition: all 0.15s ease;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        flex: 1;
+    }
+
+        .apto-back-link:hover {
+            background: #f9fafb;
+            border-color: #9ca3af;
+            color: #374151;
+            text-decoration: none;
+        }
+
+        .apto-back-link i {
+            margin-right: 0.5rem;
+        }
+</style>
+<div class="apto-delete-container">
+    <div class="apto-delete-title">Eliminar Apartamento</div>
+    <div class="apto-delete-sub">
+        <i class="fas fa-exclamation-triangle"></i> ¿Estás seguro que deseas eliminar este apartamento?
+    </div>
+    <dl class="dl-horizontal apto-delete-info">
+        <dt>@Html.DisplayNameFor(model => model.Torre.NombreTorre)</dt>
+        <dd>@Html.DisplayFor(model => model.Torre.NombreTorre)</dd>
+        <dt>@Html.DisplayNameFor(model => model.NombreApto)</dt>
+        <dd>@Html.DisplayFor(model => model.NombreApto)</dd>
+        <dt>@Html.DisplayNameFor(model => model.FechaCreacion)</dt>
+        <dd>@Html.DisplayFor(model => model.FechaCreacion)</dd>
+        <dt>@Html.DisplayNameFor(model => model.UsuarioCreacion)</dt>
+        <dd>@Html.DisplayFor(model => model.UsuarioCreacion)</dd>
+        <dt>@Html.DisplayNameFor(model => model.FechaModificacion)</dt>
+        <dd>@Html.DisplayFor(model => model.FechaModificacion)</dd>
+        <dt>@Html.DisplayNameFor(model => model.UsuarioModificacion)</dt>
+        <dd>@Html.DisplayFor(model => model.UsuarioModificacion)</dd>
+    </dl>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div class="apto-delete-btns">
+            <a href="@Url.Action("Index")" class="apto-back-link">
+                <i class="fas fa-arrow-left"></i> Cancelar
+            </a>
+            <button type="submit" class="btn-apto-delete">
+                <i class="fas fa-trash"></i> Eliminar
+            </button>
+        </div>
+    }
+</div>
