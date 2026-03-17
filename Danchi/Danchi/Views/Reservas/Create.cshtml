@@ -1,125 +1,163 @@
 ﻿@model ResiApp.Models.Reserva
-
 @{
     ViewBag.Title = "Nueva Reserva";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 <style>
-.nueva-reserva-container {
-    max-width: 600px;
-    margin: 2.7rem auto 0 auto;
-    background: #fff;
-    border-radius: 1.2rem;
-    box-shadow: 0 8px 32px #ffb6b933, 0 2px 12px #ae3b6222;
-    padding: 2.7rem 2.3rem 2.1rem 2.3rem;
-    position: relative;
-    z-index: 2;
-}
-.nueva-reserva-title {
-    font-weight: 800;
-    font-size: 2.1rem;
-    color: #7c7474;
-    text-align: center;
-    margin-bottom: 2rem;
-    letter-spacing: 0.01em;
-    text-shadow: 0 2px 10px #ffd3dc2e;
-}
-.nueva-reserva-label {
-    font-weight: 600;
-    color: #ae3b62;
-    margin-bottom: 0.18rem;
-    font-size: 1.04rem;
-}
-.nueva-reserva-input,
-.nueva-reserva-input[type="date"],
-.nueva-reserva-input[type="time"] {
-    width: 100%;
-    border-radius: 1rem;
-    border: 1.5px solid #ffb6b9;
-    background: #f9f8f8;
-    font-size: 1.07rem;
-    padding: 0.82rem 1.15rem;
-    margin-bottom: 1.18rem;
-    color: #7c7474;
-    transition: border-color .2s, background .2s;
-}
-.nueva-reserva-input:focus {
-    border-color: #ae3b62;
-    background: #fff;
-    outline: none;
-}
-.btn-guardar-reserva {
-    background: linear-gradient(45deg, #ff7b9b 60%, #ffb6b9 100%);
-    color: #fff;
-    font-weight: 700;
-    padding: 0.9rem 2.4rem;
-    border-radius: 1.1rem;
-    border: none;
-    font-size: 1.11rem;
-    box-shadow: 0 2px 9px #ffb6b933;
-    transition: background 0.18s, box-shadow 0.18s;
-}
-.btn-guardar-reserva:hover {
-    background: linear-gradient(45deg, #ae3b62 60%, #ffb6b9 100%);
-    color: #fff;
-}
-.back-link {
-    color: #ae3b62;
-    font-weight: 600;
-    text-decoration: none;
-    margin-top: 1.3rem;
-    display: inline-block;
-    transition: color .18s;
-}
-.back-link:hover {
-    color: #ff7b9b;
-    text-decoration: underline;
-}
-@@media (max-width: 700px) {
-    .nueva-reserva-container { padding: 1.4rem 0.5rem; }
-    .nueva-reserva-title { font-size: 1.3rem; }
-}
-</style>
+    .reserva-form-container {
+        max-width: 600px;
+        margin: 2.7rem auto 0 auto;
+        background: #fff;
+        border-radius: 0.75rem;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        padding: 2.5rem 2.2rem 2rem 2.2rem;
+    }
 
-<div class="nueva-reserva-container">
-    <div class="nueva-reserva-title">Nueva Reserva</div>
+    .reserva-form-title {
+        color: #1a202c;
+        font-size: 1.875rem;
+        font-weight: 700;
+        margin-bottom: 1.5rem;
+        text-align: center;
+        letter-spacing: -0.01em;
+    }
+
+    .reserva-form-group {
+        margin-bottom: 1.5rem;
+    }
+
+    .reserva-form-label {
+        font-weight: 600;
+        color: #374151;
+        margin-bottom: .5rem;
+        display: block;
+        font-size: 0.95rem;
+    }
+
+    .reserva-form-control {
+        border-radius: 0.5rem !important;
+        border: 1px solid #d1d5db !important;
+        font-size: 0.95rem;
+        padding: 0.75rem 1rem !important;
+        background: #ffffff !important;
+        color: #374151;
+        width: 100%;
+        transition: all 0.15s ease;
+    }
+
+        .reserva-form-control:focus {
+            border-color: #2563eb !important;
+            background: #fff !important;
+            box-shadow: 0 0 0 3px rgba(37,99,235,0.1);
+            outline: none;
+        }
+
+        .reserva-form-control:hover {
+            border-color: #9ca3af !important;
+        }
+
+    .reserva-form-btns {
+        display: flex;
+        gap: 0.75rem;
+        margin-top: 2rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid #f3f4f6;
+    }
+
+    .btn-reserva-guardar {
+        background: #2563eb;
+        color: #fff;
+        font-weight: 600;
+        padding: 0.7rem 1.75rem;
+        border-radius: 0.5rem;
+        border: none;
+        font-size: 0.95rem;
+        box-shadow: 0 1px 3px rgba(37,99,235,0.2);
+        transition: all 0.2s ease;
+        cursor: pointer;
+        flex: 1;
+    }
+
+        .btn-reserva-guardar:hover {
+            background: #1d4ed8;
+            box-shadow: 0 2px 6px rgba(37,99,235,0.3);
+        }
+
+        .btn-reserva-guardar i {
+            margin-right: 0.5rem;
+        }
+
+    .reserva-back-link {
+        color: #6b7280;
+        font-weight: 500;
+        text-decoration: none;
+        padding: 0.7rem 1.75rem;
+        border: 1px solid #d1d5db;
+        border-radius: 0.5rem;
+        background: #ffffff;
+        transition: all 0.15s ease;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        flex: 1;
+    }
+
+        .reserva-back-link:hover {
+            background: #f9fafb;
+            border-color: #9ca3af;
+            color: #374151;
+            text-decoration: none;
+        }
+
+        .reserva-back-link i {
+            margin-right: 0.5rem;
+        }
+
+    .text-danger {
+        color: #dc2626;
+        font-size: 0.875rem;
+        margin-top: 0.25rem;
+        display: block;
+    }
+</style>
+<div class="reserva-form-container">
+    <div class="reserva-form-title">Nueva Reserva</div>
     @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
-        <div class="form-group">
-            <label class="nueva-reserva-label" for="Zona">Zona</label>
-            @Html.TextBoxFor(m => m.Zona, new { @class = "nueva-reserva-input", placeholder = "Ej: Salón Social", required = "required" })
-            @Html.ValidationMessageFor(model => model.Zona, "", new { @class = "text-danger" })
+        <div class="reserva-form-group">
+            <label class="reserva-form-label">Zona</label>
+            @Html.TextBoxFor(m => m.Zona, new { @class = "reserva-form-control", placeholder = "Ej: Salón Social" })
+            @Html.ValidationMessageFor(m => m.Zona, "", new { @class = "text-danger" })
         </div>
-        <div class="form-group">
-            <label class="nueva-reserva-label" for="FechaReserva">Fecha de Reserva</label>
-            @Html.TextBoxFor(m => m.FechaReserva, "{0:yyyy-MM-dd}", new { @class = "nueva-reserva-input", type = "date", required = "required" })
-            @Html.ValidationMessageFor(model => model.FechaReserva, "", new { @class = "text-danger" })
+        <div class="reserva-form-group">
+            <label class="reserva-form-label">Fecha de Reserva</label>
+            @Html.TextBoxFor(m => m.FechaReserva, "{0:yyyy-MM-dd}", new { @class = "reserva-form-control", type = "date" })
+            @Html.ValidationMessageFor(m => m.FechaReserva, "", new { @class = "text-danger" })
         </div>
-        <div class="form-group">
-            <label class="nueva-reserva-label" for="HoraInicio">Hora de Inicio</label>
-            @Html.TextBoxFor(m => m.HoraInicio, new { @class = "nueva-reserva-input", type = "time", required = "required" })
-            @Html.ValidationMessageFor(model => model.HoraInicio, "", new { @class = "text-danger" })
+        <div class="reserva-form-group">
+            <label class="reserva-form-label">Hora de Inicio</label>
+            @Html.TextBoxFor(m => m.HoraInicio, new { @class = "reserva-form-control", type = "time" })
+            @Html.ValidationMessageFor(m => m.HoraInicio, "", new { @class = "text-danger" })
         </div>
-        <div class="form-group">
-            <label class="nueva-reserva-label" for="HoraFin">Hora de Finalización</label>
-            @Html.TextBoxFor(m => m.HoraFin, new { @class = "nueva-reserva-input", type = "time", required = "required" })
-            @Html.ValidationMessageFor(model => model.HoraFin, "", new { @class = "text-danger" })
+        <div class="reserva-form-group">
+            <label class="reserva-form-label">Hora de Finalización</label>
+            @Html.TextBoxFor(m => m.HoraFin, new { @class = "reserva-form-control", type = "time" })
+            @Html.ValidationMessageFor(m => m.HoraFin, "", new { @class = "text-danger" })
         </div>
-        <div class="form-group">
-            <label class="nueva-reserva-label" for="NumInvitados">Número de Invitados</label>
-            @Html.TextBoxFor(m => m.NumInvitados, new { @class = "nueva-reserva-input", type = "number", min = "1", placeholder = "Ej: 10", required = "required" })
-            @Html.ValidationMessageFor(model => model.NumInvitados, "", new { @class = "text-danger" })
+        <div class="reserva-form-group">
+            <label class="reserva-form-label">Número de Invitados</label>
+            @Html.TextBoxFor(m => m.NumInvitados, new { @class = "reserva-form-control", type = "number", min = "1", placeholder = "Ej: 10" })
+            @Html.ValidationMessageFor(m => m.NumInvitados, "", new { @class = "text-danger" })
         </div>
-
-        <div class="form-group text-center">
-            <button type="submit" class="btn-guardar-reserva"><i class="fas fa-save"></i> Guardar Reserva</button>
+        <div class="reserva-form-btns">
+            <a href="@Url.Action("Index", "Reservas")" class="reserva-back-link">
+                <i class="fas fa-arrow-left"></i> Cancelar
+            </a>
+            <button type="submit" class="btn-reserva-guardar">
+                <i class="fas fa-save"></i> Guardar Reserva
+            </button>
         </div>
     }
-    <div class="text-center">
-        <a href="@Url.Action("Index", "Reservas")" class="back-link"><i class="fas fa-arrow-left"></i> Volver a la lista</a>
-    </div>
 </div>

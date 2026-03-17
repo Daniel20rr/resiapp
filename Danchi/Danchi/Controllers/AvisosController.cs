@@ -32,13 +32,13 @@ namespace ResiApp.Controllers
         [AuthorizeRole("Administrador")]
         public async Task<ActionResult> Index()
         {
-            return View(await _db.Avisos.ToListAsync());
+            return View(await _db.Avisos.ToListAsync()); // ← CAMBIO APLICADO
         }
 
         [AuthorizeRole("Administrador")]
         public ActionResult Create()
         {
-            return View();
+            return View(new Aviso()); // ← CAMBIO APLICADO
         }
 
         [HttpPost]
@@ -53,7 +53,6 @@ namespace ResiApp.Controllers
                 TempData["SuccessMessage"] = "Aviso guardado exitosamente";
                 return RedirectToAction("Index");
             }
-
             return View(aviso);
         }
 
@@ -61,17 +60,14 @@ namespace ResiApp.Controllers
         public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
+
             Aviso aviso = await _db.Avisos.FindAsync(id);
             if (aviso == null)
-            {
                 return HttpNotFound();
-            }
+
             return View(aviso);
         }
-
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -93,14 +89,12 @@ namespace ResiApp.Controllers
         public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
+
             Aviso aviso = await _db.Avisos.FindAsync(id);
             if (aviso == null)
-            {
                 return HttpNotFound();
-            }
+
             return View(aviso);
         }
 

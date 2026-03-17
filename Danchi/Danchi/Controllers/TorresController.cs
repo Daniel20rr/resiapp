@@ -34,7 +34,7 @@ namespace ResiApp.Controllers
         [AuthorizeRole("Administrador")]
         public ActionResult Create()
         {
-            return View();
+            return View(new Torre()); // ← CAMBIO APLICADO
         }
 
         [HttpPost]

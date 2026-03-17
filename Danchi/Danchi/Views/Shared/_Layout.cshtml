@@ -16,14 +16,11 @@
     @RenderSection("Styles", required: false)
 
     <style>
-        .sidebar .nav-link span {
-            font-size: 1.3rem !important; /* Puedes subir a 1.4rem o más si quieres */
-            font-weight: 700;
-            letter-spacing: 0.01em;
-        }
+        /* === SIDEBAR PROFESIONAL === */
 
+        /* Fondo del sidebar - Gris corporativo */
         .bg-gradient-primary {
-            background: #ebb3b3 !important;
+            background: #1a202c !important; /* Gris oscuro profesional */
             background-image: none !important;
         }
 
@@ -32,56 +29,80 @@
             letter-spacing: 0.01em;
         }
 
-            .sidebar .nav-link,
-            .sidebar .sidebar-brand-text {
-                color: #4d1e1e !important;
-                font-weight: 600;
-                font-size: 1.15rem;
-            }
-
-                .sidebar .nav-link i {
-                    font-size: 1.45rem;
-                    margin-right: 0.72rem;
-                    color: #ae3b62 !important;
-                    filter: drop-shadow(0 1.5px 7px #ffb6b945);
-                    transition: color 0.18s;
-                }
-
-                .sidebar .nav-link:hover, .sidebar .nav-link.active {
-                    background: #ffb6b9 !important;
-                    color: #fff !important;
-                    border-radius: 0.7rem;
-                }
-
-                    .sidebar .nav-link:hover i {
-                        color: #224abe !important;
-                    }
-
+            /* Brand (Logo y nombre) */
             .sidebar .sidebar-brand-text {
                 font-size: 1.28rem;
                 font-weight: 700;
-                color: #ae3b62 !important;
+                color: #ffffff !important;
                 letter-spacing: 0.02em;
             }
 
             .sidebar .sidebar-brand-icon {
                 font-size: 2.2rem;
-                color: #fff;
-                background: #ae3b62;
+                color: #ffffff;
+                background: #2563eb; /* Azul corporativo */
                 border-radius: 50%;
                 padding: 0.38rem 0.43rem;
                 margin-right: 0.45rem;
-                box-shadow: 0 2px 12px #ffb6b940;
+                box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
             }
 
+            /* Enlaces del menú */
+            .sidebar .nav-link {
+                color: #e2e8f0 !important; /* Gris claro */
+                font-weight: 600;
+                font-size: 1.15rem;
+                transition: all 0.3s ease;
+            }
+
+                .sidebar .nav-link span {
+                    font-size: 1.3rem !important;
+                    font-weight: 700;
+                    letter-spacing: 0.01em;
+                }
+
+                /* Iconos del menú */
+                .sidebar .nav-link i {
+                    font-size: 1.45rem;
+                    margin-right: 0.72rem;
+                    color: #60a5fa !important; /* Azul claro */
+                    transition: all 0.3s ease;
+                }
+
+                /* Hover y estado activo */
+                .sidebar .nav-link:hover,
+                .sidebar .nav-link.active {
+                    background: #2563eb !important; /* Azul corporativo */
+                    color: #ffffff !important;
+                    border-radius: 0.7rem;
+                }
+
+                    .sidebar .nav-link:hover i {
+                        color: #ffffff !important;
+                        transform: translateX(3px);
+                    }
+
+            /* Divisores */
             .sidebar hr {
-                border-top: 2px solid #f8e5e5;
+                border-top: 2px solid #374151; /* Gris medio */
                 margin: 1.5rem 0;
             }
 
-            .sidebar .text-white, .sidebar .nav-item .text-white {
-                color: #4d1e1e !important;
+            /* Texto general del sidebar */
+            .sidebar .text-white,
+            .sidebar .nav-item .text-white {
+                color: #e2e8f0 !important;
                 font-size: 1.08rem;
+            }
+
+        /* Botón toggle del sidebar */
+        #sidebarToggle {
+            background-color: #374151;
+            transition: background-color 0.3s ease;
+        }
+
+            #sidebarToggle:hover {
+                background-color: #2563eb;
             }
     </style>
 
@@ -90,11 +111,10 @@
 
     <!-- Wrapper -->
     <div id="wrapper">
-        <!-- CAMBIE TODO EL ULLLL-->
         <!-- Sidebar -->
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
-            <!-- Logo dentro de un <li> -->
+            <!-- Logo -->
             <li class="nav-item">
                 <a class="sidebar-brand d-flex align-items-center justify-content-center" href="@Url.Action(ResiApp.Utils.SessionHelper.Rol == "Administrador" ? "Index" : "UserView", "Home")">
                     <div class="sidebar-brand-icon rotate-n-15">
@@ -104,7 +124,7 @@
                 </a>
             </li>
 
-            <!-- Separador también dentro de <li> -->
+            <!-- Separador -->
             <li class="nav-item">
                 <hr class="sidebar-divider my-0" />
             </li>
@@ -140,8 +160,7 @@
                 }
             }
 
-
-            <!-- Otro separador -->
+            <!-- Separador -->
             <li class="nav-item">
                 <hr class="sidebar-divider d-none d-md-block" />
             </li>
@@ -157,7 +176,6 @@
             </li>
 
         </ul>
-
 
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">

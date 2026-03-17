@@ -6,7 +6,6 @@ namespace ResiApp.App_Start
     using System;
     using System.Web;
     using Microsoft.Web.Infrastructure.DynamicModuleHelper;
-
     using Ninject;
     using Ninject.Web.Common;
     using Ninject.Web.Mvc;
@@ -39,11 +38,8 @@ namespace ResiApp.App_Start
             {
                 kernel.Bind<Func<IKernel>>().ToMethod(ctx => () => new Bootstrapper().Kernel);
                 kernel.Bind<IHttpModule>().To<HttpApplicationInitializationHttpModule>();
-
                 RegisterServices(kernel);
-
                 DependencyResolver.SetResolver(new NinjectDependencyResolver(kernel));
-
                 return kernel;
             }
             catch
@@ -56,8 +52,8 @@ namespace ResiApp.App_Start
         private static void RegisterServices(IKernel kernel)
         {
             kernel.Bind<ResiAppDBContext>().ToSelf().InRequestScope();
-            kernel.Bind<IPasswordEncripter>().To<PasswordEncripter>().InSingletonScope();
-            kernel.Bind<IAuthorizationService>().To<AuthorizationService>().InSingletonScope();
+            kernel.Bind<IPasswordEncripter>().To<PasswordEncripter>().InRequestScope();
+            kernel.Bind<IAuthorizationService>().To<AuthorizationService>().InRequestScope();
         }
     }
 }

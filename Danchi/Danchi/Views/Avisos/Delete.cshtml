@@ -1,106 +1,140 @@
 ﻿@model ResiApp.Models.Aviso
-
 @{
     ViewBag.Title = "Eliminar Aviso";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 <style>
-    .delete-aviso-container {
-        max-width: 600px;
-        margin: 2.5rem auto 0 auto;
+    .aviso-delete-container {
+        max-width: 570px;
+        margin: 2.7rem auto 0 auto;
         background: #fff;
-        border-radius: 1.15rem;
-        box-shadow: 0 8px 32px #b9b6ec1a, 0 2px 12px #ffb6b928;
-        padding: 2.2rem 2rem 2rem 2rem;
+        border-radius: 0.75rem;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        padding: 2.5rem 2.2rem 2rem 2.2rem;
     }
 
-    .delete-title {
-        color: #7c7474;
-        font-size: 2rem;
-        font-weight: 800;
+    .aviso-delete-title {
+        color: #dc2626;
+        font-size: 1.875rem;
+        font-weight: 700;
         margin-bottom: 0.5rem;
-        text-align: left;
+        text-align: center;
+        letter-spacing: -0.01em;
     }
 
-    .delete-desc {
-        color: #7c7474;
-        font-size: 1.15rem;
-        margin-bottom: 1.7rem;
+    .aviso-delete-subtitle {
+        color: #6b7280;
+        font-size: 1rem;
+        text-align: center;
+        margin-bottom: 2rem;
     }
 
     .delete-dl {
-        margin-bottom: 1.7rem;
+        background: #f9fafb;
+        border-radius: 0.5rem;
+        border: 1px solid #e5e7eb;
+        padding: 1.2rem 1.5rem;
+        margin-bottom: 2rem;
     }
 
         .delete-dl dt {
-            font-weight: 700;
-            color: #ae3b62;
-            margin-bottom: 0.18rem;
-            margin-top: 0.6rem;
-            font-size: 1.04rem;
+            font-weight: 600;
+            color: #374151;
+            margin-top: 0.75rem;
+            font-size: 0.875rem;
         }
+
+            .delete-dl dt:first-child {
+                margin-top: 0;
+            }
 
         .delete-dl dd {
+            color: #6b7280;
+            font-size: 0.95rem;
+            margin-bottom: 0.25rem;
             margin-left: 0;
-            color: #494747;
-            margin-bottom: 0.1rem;
         }
 
-    .btn-eliminar {
-        background: linear-gradient(45deg, #ff7b9b 60%, #ffb6b9 100%);
+    .aviso-delete-btns {
+        display: flex;
+        gap: 0.75rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid #f3f4f6;
+    }
+
+    .btn-aviso-delete {
+        background: #dc2626;
         color: #fff;
-        font-weight: 700;
-        padding: 0.63rem 2.2rem;
-        border-radius: 1.15rem;
+        font-weight: 600;
+        padding: 0.7rem 1.75rem;
+        border-radius: 0.5rem;
         border: none;
-        font-size: 1.07rem;
-        box-shadow: 0 2px 9px #ffb6b933;
-        transition: background 0.18s, box-shadow 0.18s;
-        margin-right: 1.1rem;
+        font-size: 0.95rem;
+        box-shadow: 0 1px 3px rgba(220,38,38,0.2);
+        transition: all 0.2s ease;
+        cursor: pointer;
+        flex: 1;
     }
 
-        .btn-eliminar:hover {
-            background: linear-gradient(45deg, #ae3b62 60%, #ffb6b9 100%);
-            color: #fff;
+        .btn-aviso-delete:hover {
+            background: #b91c1c;
+            box-shadow: 0 2px 6px rgba(220,38,38,0.3);
         }
 
-    .back-link {
-        color: #ae3b62;
-        font-weight: 600;
+        .btn-aviso-delete i {
+            margin-right: 0.5rem;
+        }
+
+    .aviso-back-link {
+        color: #6b7280;
+        font-weight: 500;
         text-decoration: none;
-        margin-left: 0.5rem;
+        padding: 0.7rem 1.75rem;
+        border: 1px solid #d1d5db;
+        border-radius: 0.5rem;
+        background: #ffffff;
+        transition: all 0.15s ease;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        flex: 1;
     }
 
-        .back-link:hover {
-            color: #ff7b9b;
-            text-decoration: underline;
+        .aviso-back-link:hover {
+            background: #f9fafb;
+            border-color: #9ca3af;
+            color: #374151;
+            text-decoration: none;
+        }
+
+        .aviso-back-link i {
+            margin-right: 0.5rem;
         }
 </style>
-
-<div class="delete-aviso-container">
-    <div class="delete-title">Eliminar Aviso</div>
-    <div class="delete-desc">
-        ¿Estás seguro que deseas eliminar este aviso?
-    </div>
-    <div style="margin-bottom:1.6rem;font-size:1.09rem;color:#888;">
-        <b>Aviso</b>
+<div class="aviso-delete-container">
+    <div class="aviso-delete-title">¿Eliminar Aviso?</div>
+    <div class="aviso-delete-subtitle">
+        ¿Estás seguro que deseas eliminar este aviso?<br>
+        <span style="color:#dc2626;">Esta acción no se puede deshacer.</span>
     </div>
     <dl class="delete-dl">
         <dt>@Html.DisplayNameFor(model => model.Titulo)</dt>
         <dd>@Html.DisplayFor(model => model.Titulo)</dd>
         <dt>@Html.DisplayNameFor(model => model.Descripcion)</dt>
         <dd>@Html.DisplayFor(model => model.Descripcion)</dd>
-        <dt>@Html.DisplayNameFor(model => model.Estado)</dt>
-        <dd>
-            @(Model.Estado ? "Activo" : "Inactivo")
-        </dd>
+        <dt>Estado</dt>
+        <dd>@(Model.Estado ? "Activo" : "Inactivo")</dd>
     </dl>
-
     @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()
-        <button type="submit" class="btn-eliminar"><i class="fas fa-trash"></i> Eliminar</button>
-        <a href="@Url.Action("Index", "Avisos")" class="back-link"><i class="fas fa-arrow-left"></i> Cancelar</a>
+        <div class="aviso-delete-btns">
+            <a href="@Url.Action("Index", "Avisos")" class="aviso-back-link">
+                <i class="fas fa-arrow-left"></i> Cancelar
+            </a>
+            <button type="submit" class="btn-aviso-delete">
+                <i class="fas fa-trash-alt"></i> Eliminar
+            </button>
+        </div>
     }
 </div>

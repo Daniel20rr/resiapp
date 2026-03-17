@@ -1,109 +1,140 @@
-﻿@model ResiApp.Models.Evento
-
+﻿@model ResiApp.Models.Usuario
 @{
-    ViewBag.Title = "Eliminar Evento";
+    ViewBag.Title = "Eliminar Usuario";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 <style>
-    .delete-evento-container {
-        max-width: 600px;
-        margin: 3rem auto;
+    .user-delete-container {
+        max-width: 570px;
+        margin: 2.7rem auto 0 auto;
         background: #fff;
-        border-radius: 1.15rem;
-        box-shadow: 0 8px 32px #ebb3b355, 0 2px 14px #ffb6b928;
-        padding: 2.5rem 2rem 2rem 2rem;
+        border-radius: 0.75rem;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        padding: 2.5rem 2.2rem 2rem 2.2rem;
     }
 
-    .delete-evento-title {
-        color: #7c7474;
-        font-size: 2rem;
-        font-weight: 800;
-        margin-bottom: 0.7rem;
-    }
-
-    .delete-evento-subtitle {
-        color: #8a6d6d;
-        font-size: 1.17rem;
-        margin-bottom: 1.7rem;
-    }
-
-    .delete-evento-dl dt {
+    .user-delete-title {
+        color: #dc2626;
+        font-size: 1.875rem;
         font-weight: 700;
-        color: #ae3b62;
-        margin-bottom: .2rem;
-        font-size: 1.05rem;
+        margin-bottom: 0.5rem;
+        text-align: center;
+        letter-spacing: -0.01em;
     }
 
-    .delete-evento-dl dd {
-        color: #626262;
-        margin-bottom: .7rem;
-        font-size: 1.05rem;
-        margin-left: 0;
+    .user-delete-subtitle {
+        color: #6b7280;
+        font-size: 1rem;
+        text-align: center;
+        margin-bottom: 2rem;
     }
 
-    .btn-eliminar-evento {
-        background: linear-gradient(45deg, #ff7b9b 60%, #ffb6b9 100%);
-        color: #fff;
-        font-weight: 700;
-        padding: 0.7rem 2rem;
-        border-radius: 1.1rem;
-        border: none;
-        font-size: 1.07rem;
-        box-shadow: 0 2px 9px #ffb6b933;
-        margin-right: 0.8rem;
-        transition: background 0.18s, box-shadow 0.18s;
+    .delete-dl {
+        background: #f9fafb;
+        border-radius: 0.5rem;
+        border: 1px solid #e5e7eb;
+        padding: 1.2rem 1.5rem;
+        margin-bottom: 2rem;
     }
 
-        .btn-eliminar-evento:hover {
-            background: linear-gradient(45deg, #ae3b62 60%, #ffb6b9 100%);
+        .delete-dl dt {
+            font-weight: 600;
+            color: #374151;
+            margin-top: 0.75rem;
+            font-size: 0.875rem;
         }
 
-    .btn-cancelar {
-        color: #ae3b62;
-        font-weight: 700;
-        text-decoration: none;
-        margin-left: 0.5rem;
-        transition: color 0.2s;
+            .delete-dl dt:first-child {
+                margin-top: 0;
+            }
+
+        .delete-dl dd {
+            color: #6b7280;
+            font-size: 0.95rem;
+            margin-bottom: 0.25rem;
+            margin-left: 0;
+        }
+
+    .user-delete-btns {
+        display: flex;
+        gap: 0.75rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid #f3f4f6;
     }
 
-        .btn-cancelar:hover {
-            color: #ff7b9b;
-            text-decoration: underline;
+    .btn-user-delete {
+        background: #dc2626;
+        color: #fff;
+        font-weight: 600;
+        padding: 0.7rem 1.75rem;
+        border-radius: 0.5rem;
+        border: none;
+        font-size: 0.95rem;
+        box-shadow: 0 1px 3px rgba(220,38,38,0.2);
+        transition: all 0.2s ease;
+        cursor: pointer;
+        flex: 1;
+    }
+
+        .btn-user-delete:hover {
+            background: #b91c1c;
+            box-shadow: 0 2px 6px rgba(220,38,38,0.3);
+        }
+
+        .btn-user-delete i {
+            margin-right: 0.5rem;
+        }
+
+    .user-back-link {
+        color: #6b7280;
+        font-weight: 500;
+        text-decoration: none;
+        padding: 0.7rem 1.75rem;
+        border: 1px solid #d1d5db;
+        border-radius: 0.5rem;
+        background: #ffffff;
+        transition: all 0.15s ease;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        flex: 1;
+    }
+
+        .user-back-link:hover {
+            background: #f9fafb;
+            border-color: #9ca3af;
+            color: #374151;
+            text-decoration: none;
+        }
+
+        .user-back-link i {
+            margin-right: 0.5rem;
         }
 </style>
-
-<div class="delete-evento-container">
-    <div class="delete-evento-title">Eliminar Evento</div>
-    <div class="delete-evento-subtitle">¿Estás seguro que deseas eliminar este evento?</div>
-    <div style="margin-bottom:1.6rem;font-size:1.04rem;">Evento</div>
-    <dl class="delete-evento-dl">
-        <dt>@Html.DisplayNameFor(model => model.Titulo)</dt>
-        <dd>@Html.DisplayFor(model => model.Titulo)</dd>
-
-        <dt>@Html.DisplayNameFor(model => model.Descripcion)</dt>
-        <dd>@Html.DisplayFor(model => model.Descripcion)</dd>
-
-        <dt>@Html.DisplayNameFor(model => model.FechaEvento)</dt>
-        <dd>@Html.DisplayFor(model => model.FechaEvento)</dd>
-
-        <dt>@Html.DisplayNameFor(model => model.HoraInicio)</dt>
-        <dd>@Html.DisplayFor(model => model.HoraInicio)</dd>
-
-        <dt>@Html.DisplayNameFor(model => model.HoraFin)</dt>
-        <dd>@Html.DisplayFor(model => model.HoraFin)</dd>
-
-        <dt>@Html.DisplayNameFor(model => model.Lugar)</dt>
-        <dd>@Html.DisplayFor(model => model.Lugar)</dd>
-
-        <dt>@Html.DisplayNameFor(model => model.Estado)</dt>
-        <dd>@Html.DisplayFor(model => model.Estado)</dd>
+<div class="user-delete-container">
+    <div class="user-delete-title">¿Eliminar Usuario?</div>
+    <div class="user-delete-subtitle">
+        ¿Estás seguro que deseas eliminar este usuario?<br>
+        <span style="color:#dc2626;">Esta acción no se puede deshacer.</span>
+    </div>
+    <dl class="delete-dl">
+        <dt>@Html.DisplayNameFor(model => model.Nombres)</dt>
+        <dd>@Html.DisplayFor(model => model.Nombres)</dd>
+        <dt>@Html.DisplayNameFor(model => model.Apellidos)</dt>
+        <dd>@Html.DisplayFor(model => model.Apellidos)</dd>
+        <dt>@Html.DisplayNameFor(model => model.Correo)</dt>
+        <dd>@Html.DisplayFor(model => model.Correo)</dd>
     </dl>
-
     @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()
-        <button type="submit" class="btn-eliminar-evento"><i class="fas fa-trash-alt"></i> Eliminar</button>
-        <a href="@Url.Action("Index", "Eventos")" class="btn-cancelar"><i class="fas fa-arrow-left"></i> Cancelar</a>
+        <div class="user-delete-btns">
+            <a href="@Url.Action("Index", "Account")" class="user-back-link">
+                <i class="fas fa-arrow-left"></i> Cancelar
+            </a>
+            <button type="submit" class="btn-user-delete">
+                <i class="fas fa-trash-alt"></i> Eliminar
+            </button>
+        </div>
     }
 </div>

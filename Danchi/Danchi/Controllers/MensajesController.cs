@@ -39,7 +39,7 @@ namespace ResiApp.Controllers
 
             return View(model);
         }
-        //CREO Q TAMBIEN LO CAMBIEEE
+
         public ActionResult Reply(int id)
         {
             var mensajeOriginal = _db.Mensajes
@@ -50,7 +50,7 @@ namespace ResiApp.Controllers
                 return HttpNotFound();
 
             var usuarioActualId = SessionHelper.UserId ?? 0;
-            var receptor = _db.Usuarios.Find(mensajeOriginal.IdEmisor); // El emisor original es ahora el receptor
+            var receptor = _db.Usuarios.Find(mensajeOriginal.IdEmisor);
 
             var reply = new Mensaje
             {
@@ -58,12 +58,11 @@ namespace ResiApp.Controllers
                 IdEmisor = usuarioActualId,
                 Asunto = "Re: " + mensajeOriginal.Asunto,
                 MensajePadreId = mensajeOriginal.IdMensaje,
-                Receptor = receptor // Esta es la clave para que funcione la vista
+                Receptor = receptor
             };
 
             return View(reply);
         }
-
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -93,16 +92,16 @@ namespace ResiApp.Controllers
         public async Task<ActionResult> Details(int? id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
 
-            var mensaje = await _db.Mensajes.Include("Emisor").Include("Receptor").Include("Respuestas").FirstOrDefaultAsync(m => m.IdMensaje == id);
+            var mensaje = await _db.Mensajes
+                .Include("Emisor")
+                .Include("Receptor")
+                .Include("Respuestas")
+                .FirstOrDefaultAsync(m => m.IdMensaje == id);
 
             if (mensaje == null)
-            {
                 return HttpNotFound();
-            }
 
             int userId = SessionHelper.UserId.Value;
 
@@ -112,9 +111,10 @@ namespace ResiApp.Controllers
                 _db.Entry(mensaje).State = EntityState.Modified;
                 await _db.SaveChangesAsync();
             }
+
             return View(mensaje);
         }
-        //LO QUE CAMBIEEEEEE
+
         public ActionResult Create()
         {
             int usuarioActualId = SessionHelper.UserId ?? 0;
@@ -122,26 +122,15 @@ namespace ResiApp.Controllers
 
             List<Usuario> receptores;
 
-            if (usuarioActual.IdRol == 1) // 1 = Admin
-            {
-                // Admin puede ver a todos, excepto a sí mismo
-                receptores = _db.Usuarios
-                    .Where(u => u.IdUsuario != usuarioActualId)
-                    .ToList();
-            }
+            if (usuarioActual.IdRol == 1)
+                receptores = _db.Usuarios.Where(u => u.IdUsuario != usuarioActualId).ToList();
             else
-            {
-                // Residente solo puede ver al admin
-                receptores = _db.Usuarios
-                    .Where(u => u.IdRol == 1) // admin
-                    .ToList();
-            }
+                receptores = _db.Usuarios.Where(u => u.IdRol == 1).ToList();
 
             ViewBag.IdReceptor = new SelectList(receptores, "IdUsuario", "Correo");
 
-            return View();
+            return View(new Mensaje()); // ← CAMBIO APLICADO
         }
-
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -175,14 +164,12 @@ namespace ResiApp.Controllers
         public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
+
             Mensaje mensaje = await _db.Mensajes.FindAsync(id);
             if (mensaje == null)
-            {
                 return HttpNotFound();
-            }
+
             return View(mensaje);
         }
 
@@ -213,14 +200,12 @@ namespace ResiApp.Controllers
         public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
+
             Mensaje mensaje = await _db.Mensajes.FindAsync(id);
             if (mensaje == null)
-            {
                 return HttpNotFound();
-            }
+
             return View(mensaje);
         }
 
@@ -241,7 +226,6 @@ namespace ResiApp.Controllers
             if (mensaje == null || string.IsNullOrEmpty(mensaje.ArchivoAdjunto))
                 return HttpNotFound();
 
-            // archivo almacenado como: "nombre.pdf|BASE64"
             var partes = mensaje.ArchivoAdjunto.Split('|');
             if (partes.Length != 2)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);

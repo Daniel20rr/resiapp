@@ -1,104 +1,145 @@
 ﻿@model ResiApp.Models.Torre
-
 @{
     ViewBag.Title = "Nueva Torre";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 <style>
-    .torre-create-container {
-        max-width: 560px;
-        margin: 2.5rem auto;
+    .torre-form-container {
+        max-width: 570px;
+        margin: 2.7rem auto 0 auto;
         background: #fff;
-        border-radius: 1.5rem;
-        box-shadow: 0 6px 32px #ebb3b370, 0 2px 14px #f8b6b938;
-        padding: 2.3rem 1.5rem 2rem 1.5rem;
+        border-radius: 0.75rem;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+        padding: 2.5rem 2.2rem 2rem 2.2rem;
+    }
+
+    .torre-form-title {
+        color: #1a202c;
+        font-size: 1.875rem;
+        font-weight: 700;
+        margin-bottom: 1.5rem;
         text-align: center;
+        letter-spacing: -0.01em;
     }
 
-    .torre-create-title {
-        color: #8a6d6d;
-        font-size: 1.8rem;
-        font-weight: 800;
-        margin-bottom: 2rem;
-        letter-spacing: 0.01em;
+    .torre-form-group {
+        margin-bottom: 1.5rem;
     }
 
-    .form-group {
-        text-align: left;
-        margin-bottom: 1.6rem;
-    }
-
-    .form-label {
-        font-weight: 700;
-        color: #ad7b7b;
-        margin-bottom: 0.5rem;
-        display: block;
-        font-size: 1.07rem;
-    }
-
-    .form-control {
-        border-radius: 1.1rem;
-        border: 1.5px solid #ead8e4;
-        font-size: 1.09rem;
-        padding: 0.95rem 1.2rem;
-        background: #f9f8f8;
-        color: #7c7474;
-        width: 100%;
-    }
-
-        .form-control:focus {
-            border-color: #ebb3b3;
-            background: #fff;
-            box-shadow: 0 2px 10px #ebb3b333;
-        }
-
-    .btn-torre-create {
-        background: linear-gradient(45deg, #ff7b9b 60%, #ebb3b3 100%);
-        color: #fff;
-        font-weight: 700;
-        padding: 0.72rem 2.1rem;
-        border-radius: 1.1rem;
-        border: none;
-        font-size: 1.08rem;
-        box-shadow: 0 2px 9px #ebb3b333;
-        margin-top: 0.7rem;
-        transition: background 0.2s;
-    }
-
-        .btn-torre-create:hover {
-            background: linear-gradient(45deg, #ce466d 70%, #ebb3b3 100%);
-        }
-
-    .back-link {
-        color: #ad7b7b;
+    .torre-form-label {
         font-weight: 600;
-        text-decoration: none;
-        margin-top: 1.5rem;
-        display: inline-block;
+        color: #374151;
+        margin-bottom: .5rem;
+        display: block;
+        font-size: 0.95rem;
+        letter-spacing: .01em;
     }
 
-        .back-link:hover {
-            color: #ff7b9b;
-            text-decoration: underline;
-        }
-</style>
+    .torre-form-control {
+        border-radius: 0.5rem !important;
+        border: 1px solid #d1d5db !important;
+        font-size: 0.95rem;
+        padding: 0.75rem 1rem !important;
+        background: #ffffff !important;
+        color: #374151;
+        width: 100%;
+        transition: all 0.15s ease;
+    }
 
-<div class="torre-create-container">
-    <div class="torre-create-title">Nueva Torre</div>
+        .torre-form-control:focus {
+            border-color: #2563eb !important;
+            background: #fff !important;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+            outline: none;
+        }
+
+        .torre-form-control:hover {
+            border-color: #9ca3af !important;
+        }
+
+    .torre-form-btns {
+        display: flex;
+        gap: 0.75rem;
+        margin-top: 2rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid #f3f4f6;
+    }
+
+    .btn-torre-guardar {
+        background: #2563eb;
+        color: #fff;
+        font-weight: 600;
+        padding: 0.7rem 1.75rem;
+        border-radius: 0.5rem;
+        border: none;
+        font-size: 0.95rem;
+        box-shadow: 0 1px 3px rgba(37, 99, 235, 0.2);
+        transition: all 0.2s ease;
+        cursor: pointer;
+        flex: 1;
+    }
+
+        .btn-torre-guardar:hover {
+            background: #1d4ed8;
+            color: #fff;
+            box-shadow: 0 2px 6px rgba(37, 99, 235, 0.3);
+        }
+
+        .btn-torre-guardar i {
+            margin-right: 0.5rem;
+        }
+
+    .torre-back-link {
+        color: #6b7280;
+        font-weight: 500;
+        text-decoration: none;
+        padding: 0.7rem 1.75rem;
+        border: 1px solid #d1d5db;
+        border-radius: 0.5rem;
+        background: #ffffff;
+        transition: all 0.15s ease;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        flex: 1;
+    }
+
+        .torre-back-link:hover {
+            background: #f9fafb;
+            border-color: #9ca3af;
+            color: #374151;
+            text-decoration: none;
+        }
+
+        .torre-back-link i {
+            margin-right: 0.5rem;
+        }
+
+    .text-danger {
+        color: #dc2626;
+        font-size: 0.875rem;
+        margin-top: 0.25rem;
+        display: block;
+    }
+</style>
+<div class="torre-form-container">
+    <div class="torre-form-title">Nueva Torre</div>
     @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            <label class="form-label" for="NombreTorre">Nombre o Distinción Torre</label>
-            @Html.EditorFor(model => model.NombreTorre, new { htmlAttributes = new { @class = "form-control", @placeholder = "Ej: Torre 1, Edificio Central..." } })
+        <div class="torre-form-group">
+            <label class="torre-form-label" for="NombreTorre">Nombre o Distinción Torre</label>
+            @Html.TextBoxFor(model => model.NombreTorre, new { @class = "torre-form-control", placeholder = "Ej: Torre 1, Edificio Central..." })
             @Html.ValidationMessageFor(model => model.NombreTorre, "", new { @class = "text-danger" })
         </div>
-        <button type="submit" class="btn-torre-create">
-            <i class="fas fa-plus"></i> Crear
-        </button>
+        <div class="torre-form-btns">
+            <a href="@Url.Action("Index", "Torres")" class="torre-back-link">
+                <i class="fas fa-arrow-left"></i> Cancelar
+            </a>
+            <button type="submit" class="btn-torre-guardar">
+                <i class="fas fa-save"></i> Guardar
+            </button>
+        </div>
     }
-    <br />
-    <a href="@Url.Action("Index", "Torres")" class="back-link"><i class="fas fa-arrow-left"></i> Volver al listado</a>
 </div>

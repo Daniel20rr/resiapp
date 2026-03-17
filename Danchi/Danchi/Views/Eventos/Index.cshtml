@@ -1,10 +1,8 @@
 ﻿@model IEnumerable<ResiApp.Models.Evento>
-
 @{
     ViewBag.Title = "Eventos";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 @if (TempData["SuccessMessage"] != null)
 {
     <script>
@@ -17,160 +15,219 @@
         });
     </script>
 }
-
 <style>
-.eventos-container {
-    max-width: 1150px;
-    margin: 2.7rem auto;
-    background: #fff;
-    border-radius: 1.4rem;
-    box-shadow: 0 6px 32px #ebb3b370, 0 2px 14px #f8b6b938;
-    padding: 2.5rem 1.8rem 2.2rem 1.8rem;
-}
-.eventos-title {
-    color: #8a6d6d;
-    font-size: 2rem;
-    font-weight: 800;
-    text-align: center;
-    margin-bottom: 2.2rem;
-}
-.eventos-actions {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1.6rem;
-}
-.btn-rosa {
-    background: linear-gradient(45deg, #ff7b9b 60%, #ebb3b3 100%);
-    color: #fff !important;
-    font-weight: 700;
-    border-radius: 1.1rem;
-    border: none;
-    padding: 0.6rem 1.3rem;
-    font-size: 1.04rem;
-    box-shadow: 0 1.5px 10px #ffb6b933;
-    transition: background 0.2s;
-}
-.btn-rosa:hover {
-    background: linear-gradient(45deg, #ce466d 60%, #ebb3b3 100%);
-    color: #fff !important;
-}
-.btn-exportar {
-    background: linear-gradient(45deg, #f86d75 60%, #ebb3b3 100%);
-    color: #fff !important;
-    font-weight: 700;
-    border-radius: 1.1rem;
-    border: none;
-    padding: 0.6rem 1.3rem;
-    font-size: 1.04rem;
-    box-shadow: 0 1.5px 10px #ebb3b355;
-    transition: background 0.2s;
-}
-.btn-exportar:hover {
-    background: linear-gradient(45deg, #ce466d 60%, #ebb3b3 100%);
-    color: #fff !important;
-}
-.eventos-table {
-    width: 100%;
-    border-radius: 1.1rem 1.1rem 1rem 1rem;
-    overflow: hidden;
-    border-collapse: separate;
-    border-spacing: 0;
-    box-shadow: 0 2px 8px #ebb3b333;
-}
-.eventos-table thead tr {
-    background: linear-gradient(90deg, #ebb3b3 80%, #fff 100%);
-}
-.eventos-table th {
-    color: #ad7b7b;
-    font-weight: 800;
-    padding: 0.85rem 0.7rem;
-    font-size: 1.07rem;
-    border-bottom: 2px solid #ffb6b933;
-    border-top: none;
-    text-align: left;
-}
-.eventos-table td {
-    padding: 0.75rem 0.7rem;
-    font-size: 1.05rem;
-    color: #7c7474;
-    background: #fff;
-    border-bottom: 1.5px solid #f4dade;
-    vertical-align: middle;
-}
-.eventos-table tr:nth-child(even) td {
-    background: #fff6f6;
-}
-.eventos-table tbody tr:hover td {
-    background: #ffeff5;
-    transition: background 0.25s;
-}
-.eventos-table a {
-    color: #ce466d !important;
-    font-weight: 700;
-    margin-right: 0.7rem;
-    text-decoration: none;
-    transition: color 0.2s;
-}
-.eventos-table a:hover {
-    color: #ff7b9b !important;
-    text-decoration: underline;
-}
-@@media (max-width: 900px) {
-    .eventos-container { padding: 1.1rem 0.4rem; }
-    .eventos-title { font-size: 1.25rem;}
-}
-</style>
+    .eventos-container {
+        max-width: 1150px;
+        margin: 2.7rem auto 0 auto;
+        background: #ffffff;
+        border-radius: 0.75rem;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        padding: 2rem 2.5rem 2.5rem 2.5rem;
+    }
 
+    .eventos-title {
+        text-align: center;
+        color: #1a202c;
+        font-size: 2rem;
+        font-weight: 700;
+        margin-bottom: 2rem;
+        letter-spacing: -0.01em;
+    }
+
+    .eventos-actions {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1.5rem;
+    }
+
+    .btn-nuevo-evento {
+        background: #2563eb;
+        color: #fff;
+        font-weight: 600;
+        border-radius: 0.5rem;
+        padding: 0.65rem 1.5rem;
+        border: none;
+        font-size: 0.95rem;
+        box-shadow: 0 1px 3px rgba(37,99,235,0.2);
+        transition: all 0.2s ease;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+    }
+
+        .btn-nuevo-evento:hover {
+            background: #1d4ed8;
+            color: #fff;
+            text-decoration: none;
+        }
+
+    .btn-exportar-evento {
+        background: #16a34a;
+        color: #fff;
+        font-weight: 600;
+        border-radius: 0.5rem;
+        padding: 0.65rem 1.5rem;
+        border: none;
+        font-size: 0.95rem;
+        box-shadow: 0 1px 3px rgba(22,163,74,0.2);
+        transition: all 0.2s ease;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+    }
+
+        .btn-exportar-evento:hover {
+            background: #15803d;
+            color: #fff;
+            text-decoration: none;
+        }
+
+    .eventos-table {
+        width: 100%;
+        background: #fff;
+        border-radius: 0.5rem;
+        overflow: hidden;
+        border: 1px solid #e5e7eb;
+    }
+
+        .eventos-table th, .eventos-table td {
+            padding: 1rem 1.25rem;
+            text-align: left;
+            border-bottom: 1px solid #f3f4f6;
+            font-size: 0.95rem;
+        }
+
+        .eventos-table th {
+            background: #f8fafc;
+            color: #475569;
+            font-weight: 600;
+            border-bottom: 1px solid #e5e7eb;
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.025em;
+        }
+
+        .eventos-table tbody tr:hover {
+            background-color: #f9fafb;
+        }
+
+        .eventos-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .eventos-table td {
+            color: #374151;
+        }
+
+    .btn-action-evento {
+        font-weight: 500;
+        padding: 0.4rem 0.9rem;
+        border-radius: 0.4rem;
+        font-size: 0.875rem;
+        text-decoration: none;
+        transition: all 0.15s ease;
+        margin: 0 0.15rem;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.3rem;
+    }
+
+    .btn-evento-edit {
+        background: #eff6ff;
+        color: #2563eb;
+        border: 1px solid #bfdbfe;
+    }
+
+        .btn-evento-edit:hover {
+            background: #dbeafe;
+            color: #1d4ed8;
+            text-decoration: none;
+        }
+
+    .btn-evento-del {
+        background: #fef2f2;
+        color: #dc2626;
+        border: 1px solid #fecaca;
+    }
+
+        .btn-evento-del:hover {
+            background: #fee2e2;
+            color: #b91c1c;
+            text-decoration: none;
+        }
+
+    .estado-icon {
+        font-size: 1.1rem;
+        color: #16a34a;
+    }
+
+    .estado-inactivo {
+        color: #9ca3af;
+    }
+</style>
 <div class="eventos-container">
     <div class="eventos-title">Eventos</div>
     <div class="eventos-actions">
-        <div>
-            @Html.ActionLink("Nuevo Evento", "Create", null, new { @class = "btn-rosa" })
-        </div>
+        <a href="@Url.Action("Create", "Eventos")" class="btn-nuevo-evento">
+            <i class="fas fa-plus"></i> Nuevo Evento
+        </a>
         @if (ResiApp.Utils.SessionHelper.Rol == "Administrador")
         {
-            <div>
-                @Html.ActionLink("Exportar a PDF", "ExportarEventosPDF", "Eventos", null, new { @class = "btn-exportar" })
-            </div>
+            <a href="@Url.Action("ExportarEventosPDF", "Eventos")" class="btn-exportar-evento">
+                <i class="fas fa-file-pdf"></i> Exportar a PDF
+            </a>
         }
     </div>
-
-    <table class="eventos-table">
-        <thead>
-            <tr>
-                <th>@Html.DisplayNameFor(model => model.Titulo)</th>
-                <th>@Html.DisplayNameFor(model => model.Descripcion)</th>
-                <th>@Html.DisplayNameFor(model => model.FechaEvento)</th>
-                <th>@Html.DisplayNameFor(model => model.HoraInicio)</th>
-                <th>@Html.DisplayNameFor(model => model.HoraFin)</th>
-                <th>@Html.DisplayNameFor(model => model.Lugar)</th>
-                <th>@Html.DisplayNameFor(model => model.Estado)</th>
-                <th></th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
+    <div style="overflow-x:auto;">
+        <table class="eventos-table">
+            <thead>
                 <tr>
-                    <td>@Html.DisplayFor(modelItem => item.Titulo)</td>
-                    <td>@Html.DisplayFor(modelItem => item.Descripcion)</td>
-                    <td>@Html.DisplayFor(modelItem => item.FechaEvento)</td>
-                    <td>@Html.DisplayFor(modelItem => item.HoraInicio)</td>
-                    <td>@Html.DisplayFor(modelItem => item.HoraFin)</td>
-                    <td>@Html.DisplayFor(modelItem => item.Lugar)</td>
-                    <td>
-                        @(item.Estado ? "✔️" : "❌")
-                    </td>
-                    <td>
-                        @Html.ActionLink("Editar", "Edit", new { id = item.IdEvento })
-                    </td>
-                    <td>
-                        @Html.ActionLink("Eliminar", "Delete", new { id = item.IdEvento })
-                    </td>
+                    <th>@Html.DisplayNameFor(model => model.Titulo)</th>
+                    <th>@Html.DisplayNameFor(model => model.Descripcion)</th>
+                    <th>@Html.DisplayNameFor(model => model.FechaEvento)</th>
+                    <th>@Html.DisplayNameFor(model => model.HoraInicio)</th>
+                    <th>@Html.DisplayNameFor(model => model.HoraFin)</th>
+                    <th>@Html.DisplayNameFor(model => model.Lugar)</th>
+                    <th>@Html.DisplayNameFor(model => model.Estado)</th>
+                    <th style="text-align:center;" colspan="2">Acciones</th>
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => item.Titulo)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Descripcion)</td>
+                        <td>@item.FechaEvento.ToString("dd/MM/yyyy")</td>
+                        <td>@item.HoraInicio.ToString(@"hh\:mm")</td>
+                        <td>@item.HoraFin.ToString(@"hh\:mm")</td>
+                        <td>@Html.DisplayFor(modelItem => item.Lugar)</td>
+                        <td>
+                            @if (item.Estado)
+                            {
+                                <span class="estado-icon"><i class="fas fa-check-circle"></i></span>
+                            }
+                            else
+                            {
+                                <span class="estado-icon estado-inactivo"><i class="fas fa-times-circle"></i></span>
+                            }
+                        </td>
+                        <td style="text-align:center;">
+                            <a href="@Url.Action("Edit", "Eventos", new { id = item.IdEvento })" class="btn-action-evento btn-evento-edit">
+                                <i class="fas fa-edit"></i> Editar
+                            </a>
+                        </td>
+                        <td style="text-align:center;">
+                            <a href="@Url.Action("Delete", "Eventos", new { id = item.IdEvento })" class="btn-action-evento btn-evento-del">
+                                <i class="fas fa-trash-alt"></i> Eliminar
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 </div>

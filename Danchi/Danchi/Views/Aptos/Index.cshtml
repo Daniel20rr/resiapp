@@ -19,21 +19,21 @@
 }
 <style>
     .apto-table-container {
-        max-width: 950px;
+        max-width: 1100px;
         margin: 2.5rem auto;
-        background: #fff;
-        border-radius: 1.2rem;
-        box-shadow: 0 6px 32px #ebb3b370, 0 2px 14px #f8b6b938;
-        padding: 2rem 2rem 2.2rem 2rem;
+        background: #ffffff;
+        border-radius: 0.75rem;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+        padding: 2rem 2.5rem 2.5rem 2.5rem;
     }
 
     .apto-title {
         text-align: center;
-        color: #8a6d6d;
-        font-size: 2.1rem;
-        font-weight: 800;
+        color: #1a202c;
+        font-size: 2rem;
+        font-weight: 700;
         margin-bottom: 2rem;
-        letter-spacing: 0.01em;
+        letter-spacing: -0.01em;
     }
 
     .apto-table-actions {
@@ -42,71 +42,108 @@
     }
 
     .btn-nuevo-apto {
-        background: linear-gradient(45deg, #ff7b9b 60%, #ebb3b3 100%);
+        background: #2563eb;
         color: #fff;
-        font-weight: 700;
-        border-radius: 1.1rem;
-        padding: 0.7rem 1.5rem;
+        font-weight: 600;
+        border-radius: 0.5rem;
+        padding: 0.65rem 1.5rem;
         border: none;
-        font-size: 1.05rem;
-        box-shadow: 0 2px 8px #ebb3b333;
+        font-size: 0.95rem;
+        box-shadow: 0 1px 3px rgba(37, 99, 235, 0.2);
         margin-bottom: .8rem;
-        transition: background 0.2s;
+        transition: all 0.2s ease;
         text-decoration: none;
         display: inline-block;
     }
 
         .btn-nuevo-apto:hover {
-            background: linear-gradient(45deg, #ce466d 70%, #ebb3b3 100%);
+            background: #1d4ed8;
             color: #fff;
             text-decoration: none;
+            box-shadow: 0 2px 6px rgba(37, 99, 235, 0.3);
         }
 
     .apto-table {
         width: 100%;
-        background: #fff7f7;
-        border-radius: 1rem;
+        background: #fff;
+        border-radius: 0.5rem;
         overflow: hidden;
-        box-shadow: 0 2px 11px #ebb3b33a;
+        border: 1px solid #e5e7eb;
     }
 
         .apto-table th, .apto-table td {
-            padding: 1rem 0.7rem;
+            padding: 1rem 1.25rem;
             text-align: left;
-            border-bottom: 1px solid #f6d6d6;
-            font-size: 1.04rem;
+            border-bottom: 1px solid #f3f4f6;
+            font-size: 0.95rem;
         }
 
         .apto-table th {
-            background: linear-gradient(90deg, #ffd6e0 65%, #ebb3b3 100%);
-            color: #ce466d;
-            font-weight: 800;
-            border-bottom: 2px solid #ebb3b3;
-            font-size: 1.09rem;
+            background: #f8fafc;
+            color: #475569;
+            font-weight: 600;
+            border-bottom: 1px solid #e5e7eb;
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.025em;
         }
+
+        .apto-table tbody tr {
+            transition: background-color 0.15s ease;
+        }
+
+            .apto-table tbody tr:hover {
+                background-color: #f9fafb;
+            }
 
         .apto-table tr:last-child td {
             border-bottom: none;
         }
 
+        .apto-table td {
+            color: #374151;
+        }
+
     .btn-action-apto {
-        border: none;
-        background: #ffe1e7;
-        color: #ce466d;
-        font-weight: 700;
-        padding: 0.4rem 1.2rem;
-        border-radius: 0.9rem;
-        font-size: 0.98rem;
-        margin-right: 0.4rem;
-        transition: background 0.17s, color 0.17s;
+        font-weight: 500;
+        padding: 0.4rem 0.9rem;
+        border-radius: 0.4rem;
+        font-size: 0.875rem;
         text-decoration: none;
+        transition: all 0.15s ease;
+        margin: 0 0.15rem;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.3rem;
     }
 
-        .btn-action-apto:hover {
-            background: #ebb3b3;
-            color: #fff;
+    .btn-apto-edit {
+        background: #eff6ff;
+        color: #2563eb;
+        border: 1px solid #bfdbfe;
+    }
+
+        .btn-apto-edit:hover {
+            background: #dbeafe;
+            color: #1d4ed8;
             text-decoration: none;
         }
+
+    .btn-apto-delete {
+        background: #fef2f2;
+        color: #dc2626;
+        border: 1px solid #fecaca;
+    }
+
+        .btn-apto-delete:hover {
+            background: #fee2e2;
+            color: #b91c1c;
+            text-decoration: none;
+        }
+
+    td[style*="text-align:center"] {
+        white-space: nowrap;
+    }
 </style>
 
 <div class="apto-table-container">
@@ -123,7 +160,7 @@
             <th>@Html.DisplayNameFor(model => model.Torre.NombreTorre)</th>
             <th>@Html.DisplayNameFor(model => model.NombreApto)</th>
             <th>@Html.DisplayNameFor(model => model.FechaCreacion)</th>
-            <th colspan="2" style="text-align:center">Acciones</th>
+            <th style="text-align:center; width: 200px;">Acciones</th>
         </tr>
 
         @foreach (var item in Model)
@@ -133,12 +170,10 @@
                 <td>@Html.DisplayFor(modelItem => item.NombreApto)</td>
                 <td>@Html.DisplayFor(modelItem => item.FechaCreacion)</td>
                 <td style="text-align:center;">
-                    <a href="@Url.Action("Edit", "Aptos", new { id = item.IdApto })" class="btn-action-apto">
+                    <a href="@Url.Action("Edit", "Aptos", new { id = item.IdApto })" class="btn-action-apto btn-apto-edit">
                         <i class="fas fa-edit"></i> Editar
                     </a>
-                </td>
-                <td style="text-align:center;">
-                    <a href="@Url.Action("Delete", "Aptos", new { id = item.IdApto })" class="btn-action-apto">
+                    <a href="@Url.Action("Delete", "Aptos", new { id = item.IdApto })" class="btn-action-apto btn-apto-delete">
                         <i class="fas fa-trash-alt"></i> Eliminar
                     </a>
                 </td>

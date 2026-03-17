@@ -33,13 +33,13 @@ namespace ResiApp.Controllers
             var propietarios = _db.Propietarios.Include(p => p.Apto).Include(p => p.TiposDocumento);
             return View(await propietarios.ToListAsync());
         }
-
+        
         [AuthorizeRole("Administrador")]
         public ActionResult Create()
         {
-            ViewBag.IdApto = new SelectList(_db.Aptos, "IdApto", "NombreApto");
-            ViewBag.IdTipoDocumento = new SelectList(_db.TiposDocumento, "IdTipoDocumento", "Abreviatura");
-            return View();
+            ViewBag.IdApto = new SelectList(_db.Aptos.ToList(), "IdApto", "NombreApto");
+            ViewBag.IdTipoDocumento = new SelectList(_db.TiposDocumento.ToList(), "IdTipoDocumento", "Abreviatura");
+            return View(new Propietario()); // ← CAMBIO APLICADO
         }
 
         [HttpPost]

@@ -1,183 +1,223 @@
 ﻿@model ResiApp.Models.Mensaje
-
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Detalle del Mensaje";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 <style>
-    .detalle-card {
-        max-width: 600px;
-        margin: 2.8rem auto;
+    .detalle-container {
+        max-width: 700px;
+        margin: 2.7rem auto 0 auto;
         background: #fff;
-        border-radius: 1.3rem;
-        box-shadow: 0 4px 24px #ebb3b370, 0 1.5px 12px #f8b6b938;
-        padding: 2.1rem 2rem 2rem 2rem;
+        border-radius: 0.75rem;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        padding: 2.5rem 2.2rem 2rem 2.2rem;
     }
 
-    .detalle-titulo {
-        text-align: center;
-        color: #ae3b62;
-        font-size: 2rem;
+    .detalle-title {
+        color: #1a202c;
+        font-size: 1.875rem;
         font-weight: 700;
-        margin-bottom: 2.1rem;
+        margin-bottom: 1.5rem;
+        text-align: center;
+        letter-spacing: -0.01em;
     }
 
-    .detalle-info h5, .detalle-info p {
-        margin-bottom: .6rem;
+    .detalle-info {
+        background: #f9fafb;
+        border-radius: 0.5rem;
+        border: 1px solid #e5e7eb;
+        padding: 1.2rem 1.5rem;
+        margin-bottom: 1.5rem;
     }
 
-    .detalle-info h5 {
-        font-size: 1.13rem;
+        .detalle-info p {
+            color: #374151;
+            font-size: 0.95rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .detalle-info strong {
+            color: #1a202c;
+        }
+
+    .respuestas-label {
+        font-weight: 700;
+        color: #1a202c;
+        font-size: 1rem;
+        margin-bottom: 0.75rem;
+        display: block;
+    }
+
+    .respuesta-block {
+        background: #eff6ff;
+        border-radius: 0.5rem;
+        border: 1px solid #bfdbfe;
+        padding: 0.9rem 1.1rem;
+        margin-bottom: 0.75rem;
+    }
+
+        .respuesta-block strong {
+            color: #2563eb;
+        }
+
+        .respuesta-block span {
+            color: #9ca3af;
+            font-size: 0.875rem;
+        }
+
+    .respuesta-form-group {
+        margin-bottom: 1.25rem;
+    }
+
+    .respuesta-form-control {
+        border-radius: 0.5rem !important;
+        border: 1px solid #d1d5db !important;
+        font-size: 0.95rem;
+        padding: 0.75rem 1rem !important;
+        background: #ffffff !important;
+        color: #374151;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+        .respuesta-form-control:focus {
+            border-color: #2563eb !important;
+            box-shadow: 0 0 0 3px rgba(37,99,235,0.1);
+            outline: none;
+        }
+
+    .detalle-btns {
+        display: flex;
+        gap: 0.75rem;
+        margin-top: 1.5rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid #f3f4f6;
+    }
+
+    .btn-detalle-enviar {
+        background: #2563eb;
+        color: #fff;
         font-weight: 600;
-        color: #ae3b62;
+        padding: 0.7rem 1.75rem;
+        border-radius: 0.5rem;
+        border: none;
+        font-size: 0.95rem;
+        box-shadow: 0 1px 3px rgba(37,99,235,0.2);
+        transition: all 0.2s ease;
+        cursor: pointer;
+        flex: 1;
     }
 
-    .detalle-info p {
-        color: #775a5a;
-        font-size: 1.05rem;
+        .btn-detalle-enviar:hover {
+            background: #1d4ed8;
+            box-shadow: 0 2px 6px rgba(37,99,235,0.3);
+        }
+
+        .btn-detalle-enviar i {
+            margin-right: 0.5rem;
+        }
+
+    .detalle-back-link {
+        color: #6b7280;
+        font-weight: 500;
+        text-decoration: none;
+        padding: 0.7rem 1.75rem;
+        border: 1px solid #d1d5db;
+        border-radius: 0.5rem;
+        background: #ffffff;
+        transition: all 0.15s ease;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        flex: 1;
     }
 
-    .detalle-adjunto {
-        margin-bottom: 1.1rem;
-    }
+        .detalle-back-link:hover {
+            background: #f9fafb;
+            border-color: #9ca3af;
+            color: #374151;
+            text-decoration: none;
+        }
+
+        .detalle-back-link i {
+            margin-right: 0.5rem;
+        }
 
     .btn-adjunto {
-        background: linear-gradient(45deg, #ff7b9b 60%, #ebb3b3 100%);
-        color: #fff !important;
+        background: #eff6ff;
+        color: #2563eb;
+        border: 1px solid #bfdbfe;
         font-weight: 600;
-        border-radius: 1.1rem;
-        border: none;
-        padding: 0.45rem 1.3rem;
-        font-size: 1rem;
-        box-shadow: 0 1.5px 10px #ffb6b933;
-        margin-left: 0.7rem;
-        transition: background 0.2s;
+        padding: 0.4rem 1rem;
+        border-radius: 0.4rem;
+        font-size: 0.875rem;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.3rem;
+        transition: all 0.15s ease;
     }
 
         .btn-adjunto:hover {
-            background: linear-gradient(45deg, #ce466d 60%, #ebb3b3 100%);
-            color: #fff !important;
-        }
-
-    .detalle-respuestas-label {
-        margin-top: 1.7rem;
-        font-weight: 700;
-        color: #ae3b62;
-        font-size: 1.11rem;
-    }
-
-    .detalle-respuesta-block {
-        background: #ffe3ea;
-        border-radius: .7rem;
-        padding: 0.9rem 1.1rem;
-        margin-bottom: .9rem;
-        box-shadow: 0 1.5px 8px #ffb6b910;
-    }
-
-        .detalle-respuesta-block strong {
-            color: #ae3b62;
-        }
-
-    .form-group textarea {
-        border-radius: 1rem !important;
-        border: 1.5px solid #ead8e4 !important;
-        font-size: 1.06rem;
-        padding: 0.8rem 1rem !important;
-        background: #f9f8f8 !important;
-        color: #7c7474;
-    }
-
-    .btn-respuesta {
-        background: linear-gradient(45deg, #ff7b9b 60%, #ebb3b3 100%);
-        color: #fff !important;
-        font-weight: 700;
-        border-radius: 1.1rem;
-        border: none;
-        padding: 0.65rem 2.1rem;
-        font-size: 1.07rem;
-        box-shadow: 0 1.5px 10px #ffb6b933;
-        margin-top: .7rem;
-        margin-bottom: 1.2rem;
-        transition: background 0.2s;
-    }
-
-        .btn-respuesta:hover {
-            background: linear-gradient(45deg, #ce466d 60%, #ebb3b3 100%);
-            color: #fff !important;
-        }
-
-    .volver-link {
-        color: #ae3b62;
-        font-weight: 600;
-        text-decoration: none;
-        margin-top: 1.7rem;
-        display: inline-block;
-        transition: color .2s;
-        font-size: 1.09rem;
-    }
-
-        .volver-link:hover {
-            color: #ff7b9b;
-            text-decoration: underline;
+            background: #dbeafe;
+            color: #1d4ed8;
+            text-decoration: none;
         }
 </style>
-
-<div class="detalle-card">
-    <div class="detalle-titulo">Detalle del Mensaje</div>
-
+<div class="detalle-container">
+    <div class="detalle-title">Detalle del Mensaje</div>
     <div class="detalle-info">
-        <h5><strong>De:</strong> @Model.Emisor.Correo</h5>
-        <h5><strong>Para:</strong> @Model.Receptor.Correo</h5>
-        <h5><strong>Asunto:</strong> @Model.Asunto</h5>
+        <p><strong>De:</strong> @Model.Emisor.Correo</p>
+        <p><strong>Para:</strong> @Model.Receptor.Correo</p>
+        <p><strong>Asunto:</strong> @Model.Asunto</p>
         <p><strong>Fecha:</strong> @Model.FechaEnvio.ToString("dd/MM/yyyy HH:mm")</p>
         <p><strong>Mensaje:</strong><br />@Model.Descripcion</p>
-
         @if (!string.IsNullOrEmpty(Model.ArchivoAdjunto))
         {
-            <div class="detalle-adjunto">
+            <p>
                 <strong>Archivo adjunto:</strong>
                 @Html.ActionLink("Descargar", "DescargarArchivo", new { id = Model.IdMensaje }, new { @class = "btn-adjunto" })
-            </div>
+            </p>
         }
     </div>
 
-    <hr />
-    <div class="detalle-respuestas-label">Mensajes:</div>
+    <span class="respuestas-label">Mensajes del hilo:</span>
     @if (Model.Respuestas != null && Model.Respuestas.Any())
     {
         foreach (var respuesta in Model.Respuestas.OrderBy(r => r.FechaEnvio))
         {
-            <div class="detalle-respuesta-block">
+            <div class="respuesta-block">
                 <p>
                     <strong>@respuesta.Emisor.Correo</strong>
-                    <span style="color:#888;">(@respuesta.FechaEnvio.ToString("dd/MM/yyyy HH:mm"))</span>
+                    <span>(@respuesta.FechaEnvio.ToString("dd/MM/yyyy HH:mm"))</span>
                 </p>
-                <div>@respuesta.Descripcion</div>
+                <div style="color:#374151;font-size:0.95rem;">@respuesta.Descripcion</div>
             </div>
         }
     }
     else
     {
-        <div class="text-muted">Sin respuestas.</div>
+        <p style="color:#9ca3af;font-size:0.9rem;">Sin respuestas.</p>
     }
 
-    <hr />
-    <div class="detalle-respuestas-label">Respuestas:</div>
+    <hr style="border-color:#f3f4f6;margin:1.5rem 0;" />
+    <span class="respuestas-label">Responder:</span>
     @using (Html.BeginForm("Create", "Mensajes", FormMethod.Post))
     {
         @Html.AntiForgeryToken()
         @Html.Hidden("IdReceptor", Model.IdEmisor)
         @Html.Hidden("MensajePadreId", Model.IdMensaje)
         @Html.Hidden("Asunto", "RE: " + Model.Asunto)
-
-        <div class="form-group">
-            @Html.TextArea("Descripcion", null, new { @class = "form-control", rows = 4, placeholder = "Escribe tu respuesta..." })
+        <div class="respuesta-form-group">
+            @Html.TextArea("Descripcion", null, new { @class = "respuesta-form-control", rows = 4, placeholder = "Escribe tu respuesta..." })
         </div>
-        <button type="submit" class="btn-respuesta">Enviar respuesta</button>
+        <div class="detalle-btns">
+            <a href="@Url.Action("Index", "Mensajes")" class="detalle-back-link">
+                <i class="fas fa-arrow-left"></i> Volver
+            </a>
+            <button type="submit" class="btn-detalle-enviar">
+                <i class="fas fa-paper-plane"></i> Enviar Respuesta
+            </button>
+        </div>
     }
-
-    <div>
-        @Html.ActionLink("← Volver a la lista", "Index", null, new { @class = "volver-link" })
-    </div>
 </div>

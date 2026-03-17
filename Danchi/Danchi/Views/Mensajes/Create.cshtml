@@ -1,80 +1,158 @@
 ﻿@model ResiApp.Models.Mensaje
-
 @{
     ViewBag.Title = "Crear Mensaje";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 <style>
     .mensaje-form-container {
-        max-width: 480px;
-        margin: 2.5rem auto;
+        max-width: 570px;
+        margin: 2.7rem auto 0 auto;
         background: #fff;
-        border-radius: 1.3rem;
-        box-shadow: 0 4px 24px #ebb3b370, 0 1.5px 12px #f8b6b938;
-        padding: 2.7rem 2.2rem 2.4rem 2.2rem;
+        border-radius: 0.75rem;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        padding: 2.5rem 2.2rem 2rem 2.2rem;
     }
+
     .mensaje-form-title {
-        text-align: center;
-        color: #ae3b62;
-        font-size: 2rem;
+        color: #1a202c;
+        font-size: 1.875rem;
         font-weight: 700;
-        margin-bottom: 2.3rem;
+        margin-bottom: 1.5rem;
+        text-align: center;
+        letter-spacing: -0.01em;
     }
-    .form-group {
-        margin-bottom: 1.4rem;
-        display: flex;
-        flex-direction: column;
-        gap: .2rem;
+
+    .mensaje-form-group {
+        margin-bottom: 1.5rem;
     }
-    .form-control {
-        border-radius: 1rem !important;
-        border: 1.5px solid #ead8e4 !important;
-        font-size: 1.08rem;
-        padding: 0.9rem 1.2rem !important;
-        background: #f9f8f8 !important;
-        color: #7c7474;
-        width: 100% !important;
+
+    .mensaje-form-label {
+        font-weight: 600;
+        color: #374151;
+        margin-bottom: .5rem;
+        display: block;
+        font-size: 0.95rem;
+    }
+
+    .mensaje-form-control {
+        border-radius: 0.5rem !important;
+        border: 1px solid #d1d5db !important;
+        font-size: 0.95rem;
+        padding: 0.75rem 1rem !important;
+        background: #ffffff !important;
+        color: #374151;
+        width: 100%;
+        transition: all 0.15s ease;
         box-sizing: border-box;
     }
-    .form-control:focus {
-        border-color: #ffb6b9 !important;
-        background: #fff !important;
-        box-shadow: 0 2px 10px #ffb6b938;
+
+        .mensaje-form-control:focus {
+            border-color: #2563eb !important;
+            background: #fff !important;
+            box-shadow: 0 0 0 3px rgba(37,99,235,0.1);
+            outline: none;
+        }
+
+        .mensaje-form-control:hover {
+            border-color: #9ca3af !important;
+        }
+
+    .mensaje-form-btns {
+        display: flex;
+        gap: 0.75rem;
+        margin-top: 2rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid #f3f4f6;
+    }
+
+    .btn-mensaje-guardar {
+        background: #2563eb;
+        color: #fff;
+        font-weight: 600;
+        padding: 0.7rem 1.75rem;
+        border-radius: 0.5rem;
+        border: none;
+        font-size: 0.95rem;
+        box-shadow: 0 1px 3px rgba(37,99,235,0.2);
+        transition: all 0.2s ease;
+        cursor: pointer;
+        flex: 1;
+    }
+
+        .btn-mensaje-guardar:hover {
+            background: #1d4ed8;
+            box-shadow: 0 2px 6px rgba(37,99,235,0.3);
+        }
+
+        .btn-mensaje-guardar i {
+            margin-right: 0.5rem;
+        }
+
+    .mensaje-back-link {
+        color: #6b7280;
+        font-weight: 500;
+        text-decoration: none;
+        padding: 0.7rem 1.75rem;
+        border: 1px solid #d1d5db;
+        border-radius: 0.5rem;
+        background: #ffffff;
+        transition: all 0.15s ease;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        flex: 1;
+    }
+
+        .mensaje-back-link:hover {
+            background: #f9fafb;
+            border-color: #9ca3af;
+            color: #374151;
+            text-decoration: none;
+        }
+
+        .mensaje-back-link i {
+            margin-right: 0.5rem;
+        }
+
+    .text-danger {
+        color: #dc2626;
+        font-size: 0.875rem;
+        margin-top: 0.25rem;
+        display: block;
     }
 </style>
-
 <div class="mensaje-form-container">
     <div class="mensaje-form-title">Enviar Mensaje</div>
     @using (Html.BeginForm("Create", "Mensajes", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
         @Html.AntiForgeryToken()
-        <div class="form-group">
-            @Html.LabelFor(model => model.IdReceptor)
-            @Html.DropDownList("IdReceptor", null, "Seleccione un receptor", new { @class = "form-control" })
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="mensaje-form-group">
+            @Html.LabelFor(model => model.IdReceptor, new { @class = "mensaje-form-label" })
+            @Html.DropDownList("IdReceptor", null, "Seleccione un receptor", new { @class = "mensaje-form-control" })
             @Html.ValidationMessageFor(model => model.IdReceptor, "", new { @class = "text-danger" })
         </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.Asunto)
-            @Html.TextBoxFor(model => model.Asunto, new { @class = "form-control", placeholder = "Asunto..." })
+        <div class="mensaje-form-group">
+            @Html.LabelFor(model => model.Asunto, new { @class = "mensaje-form-label" })
+            @Html.TextBoxFor(model => model.Asunto, new { @class = "mensaje-form-control", placeholder = "Asunto..." })
             @Html.ValidationMessageFor(model => model.Asunto, "", new { @class = "text-danger" })
         </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.Descripcion)
-            @Html.TextAreaFor(model => model.Descripcion, new { @class = "form-control", rows = 5, placeholder = "Escribe tu mensaje..." })
+        <div class="mensaje-form-group">
+            @Html.LabelFor(model => model.Descripcion, new { @class = "mensaje-form-label" })
+            @Html.TextAreaFor(model => model.Descripcion, new { @class = "mensaje-form-control", rows = 5, placeholder = "Escribe tu mensaje..." })
             @Html.ValidationMessageFor(model => model.Descripcion, "", new { @class = "text-danger" })
         </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.ArchivoAdjunto, "Archivo Adjunto (Opcional)")
-            <input type="file" name="archivo" class="form-control" accept=".pdf,application/pdf" />
+        <div class="mensaje-form-group">
+            <label class="mensaje-form-label">Archivo Adjunto (Opcional)</label>
+            <input type="file" name="archivo" class="mensaje-form-control" accept=".pdf,application/pdf" />
         </div>
-        <button type="submit" class="btn btn-rosa">
-            <i class="fas fa-paper-plane"></i> Enviar
-        </button>
+        <div class="mensaje-form-btns">
+            <a href="@Url.Action("Index", "Mensajes")" class="mensaje-back-link">
+                <i class="fas fa-arrow-left"></i> Cancelar
+            </a>
+            <button type="submit" class="btn-mensaje-guardar">
+                <i class="fas fa-paper-plane"></i> Enviar
+            </button>
+        </div>
     }
-    <div>
-        <a href="@Url.Action("Index", "Mensajes")" class="back-link">
-            <i class="fas fa-arrow-left"></i> Volver a la bandeja
-        </a>
-    </div>
 </div>

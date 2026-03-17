@@ -1,47 +1,80 @@
-﻿body {
+﻿@using ResiApp.Models @model Login @ {
+    Layout = null;
+}
+
+<!DOCTYPE html >
+<html lang="es" >
+<head >
+<meta charset="utf-8" / >
+<meta name="viewport" content="width=device-width, initial-scale=1" / >
+<title > Iniciar Sesión - ResiApp</title >
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet" / >
+</head >
+<body >
+<style >
+* {
+    box-sizing: border-box;
+}
+
+body {
     min-height: 100vh;
     margin: 0;
     font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
-    background: #f8f6f5;
-    background-image: url('/Content/images/imagen.png');
-    background-repeat: no-repeat;
-    background-position: center ;
-    background-size: 1505px auto;
+    background: #f1f5f9;
     display: flex;
     align-items: center;
     justify-content: center;
+    position: relative;
+    overflow-x: hidden;
 }
 
+    body::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url('https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=1600&q=80');
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-size: cover;
+        opacity: 0.15;
+        z-index: 0;
+    }
+
 .login-card {
-    background: #fff;
-    border-radius: 1.3rem;
-    box-shadow: 0 4px 32px #ad6c6c1f, 0 1.5px 12px #d8b4a0a8;
-    padding: 2.5rem 2.2rem 2.3rem 2.2rem;
-    max-width: 340px;
-    width: 100%;
-    margin: 4.5rem 1rem 2rem 1rem; /* margen superior para que no tape la flor */
-    text-align: center;
+    background: #ffffff;
+    border-radius: 0.75rem;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.08), 0 1px 8px rgba(0,0,0,0.04);
+    padding: 2.5rem 2.2rem 2rem 2.2rem;
+    max-width: 400px;
+    width: 90%;
+    margin: 2rem 1rem;
     position: relative;
     z-index: 2;
 }
 
 .login-title {
     font-weight: 700;
-    font-size: 1.24rem;
-    margin-bottom: 0.05rem;
-    color: #382727;
-    letter-spacing: 0.01em;
+    font-size: 1.875rem;
+    margin-bottom: 0.25rem;
+    color: #1a202c;
+    letter-spacing: -0.01em;
+    text-align: center;
 }
 
 .login-subtitle {
-    color: #836e6e;
-    font-size: 1.02rem;
-    margin-bottom: 1.25rem;
+    color: #6b7280;
+    font-size: 0.95rem;
+    margin-bottom: 2rem;
+    text-align: center;
 }
 
 .form-group {
     position: relative;
-    margin-bottom: 1.02rem;
+    margin-bottom: 1.25rem;
+    width: 100%;
 }
 
 .form-icon {
@@ -49,58 +82,113 @@
     left: 1rem;
     top: 50%;
     transform: translateY(-50%);
-    color: #c6bdbd;
-    font-size: 1rem;
+    color: #9ca3af;
+    font-size: 0.95rem;
     z-index: 2;
 }
 
 .form-control-user {
-    width: 80%;
-    padding: 0.8rem 1rem 0.8rem 2.6rem;
-    border-radius: 1.1rem;
-    border: 1.5px solid #e4dadb;
-    font-size: 1rem;
-    background: #f9f8f6;
-    transition: border-color 0.22s;
+    width: 100%;
+    padding: 0.75rem 1rem 0.75rem 2.75rem;
+    border-radius: 0.5rem;
+    border: 1px solid #d1d5db;
+    font-size: 0.95rem;
+    background: #ffffff;
+    color: #374151;
+    transition: all 0.15s ease;
+    box-sizing: border-box;
+    display: block;
 }
 
     .form-control-user:focus {
-        border-color: #ff8196;
+        border-color: #2563eb;
         background: #fff;
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(37,99,235,0.1);
+    }
+
+    .form-control-user:hover {
+        border-color: #9ca3af;
     }
 
 .btn-user {
     padding: 0.75rem;
-    border-radius: 1rem;
+    border-radius: 0.5rem;
     font-weight: 600;
     border: none;
     width: 100%;
-    font-size: 1.08rem;
-    background: linear-gradient(45deg, #ff7b9b 60%, #ffb6b9 100%);
+    font-size: 0.95rem;
+    background: #2563eb;
     color: #fff;
-    margin-bottom: 0.4rem;
-    transition: background 0.18s, box-shadow 0.18s;
-    box-shadow: 0 2px 9px #ff7b9b33;
+    margin-top: 0.75rem;
+    transition: all 0.2s ease;
+    box-shadow: 0 1px 3px rgba(37,99,235,0.2);
+    cursor: pointer;
 }
 
     .btn-user:hover {
-        background: linear-gradient(45deg, #ff617c 60%, #ffb6b9 100%);
+        background: #1d4ed8;
+        box-shadow: 0 2px 6px rgba(37,99,235,0.3);
+        transform: translateY(-1px);
     }
 
 .login-footer {
-    margin-top: 1rem;
-    color: #ae9d9d;
-    font-size: 0.93rem;
-    letter-spacing: 0.01em;
+    margin-top: 1.5rem;
+    color: #9ca3af;
+    font-size: 0.875rem;
+    text-align: center;
+    padding-top: 1.25rem;
+    border-top: 1px solid #f3f4f6;
 }
 
-@media (max-width: 700px) {
-    body {
-        background-size: 330px auto;
-        background-position: center 40px;
-    }
+.text-danger {
+    color: #dc2626;
+    font-size: 0.825rem;
+    margin-top: 0.25rem;
+    display: block;
+}
 
+.alert-danger {
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+    color: #dc2626;
+    border-radius: 0.5rem;
+    padding: 0.75rem 1rem;
+    margin-bottom: 1.25rem;
+    font-size: 0.875rem;
+}
+
+@@media (max-width: 480px) {
     .login-card {
-        margin-top: 4rem;
+        padding: 2rem 1.5rem;
+        margin: 1rem 0.5rem;
+    }
+
+    .login-title {
+        font-size: 1.5rem;
     }
 }
+
+</style >
+
+<div class="login-card" >
+<div class="login-title" > Bienvenido a <b > ResiApp</b > </div >
+<div class="login-subtitle" > Plataforma para la gestión residencial</div >
+
+@if (Model != null) {
+    using (Html.BeginForm("Login", "Account", FormMethod.Post, new { @autocomplete = "off" }))
+
+{
+    @Html.AntiForgeryToken() @Html.ValidationSummary(true, "", new { @class = "alert-danger" }) <div class="form-group"> <i class="fas fa-envelope form-icon"></i> @Html.TextBoxFor(m => m.Email, new { @class = "form-control-user", placeholder = "Correo electrónico", autofocus = "autofocus" }) @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" }) </div> <div class="form-group"> <i class="fas fa-lock form-icon"></i> @Html.PasswordFor(m => m.Password, new { @class = "form-control-user", placeholder = "Contraseña", id = "password" }) @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" }) </div> <button type="submit" class="btn-user"> <i class="fas fa-sign-in-alt"></i> Iniciar sesión </button>
+}
+
+}
+
+else {
+    <p style="color:#dc2626;text-align:center;">Error al cargar el formulario. Por favor recarga la página.</p>
+}
+
+<div class="login-footer" > &copy; @DateTime.Now.Year - ResiApp</div >
+</div >
+</body >
+</html >

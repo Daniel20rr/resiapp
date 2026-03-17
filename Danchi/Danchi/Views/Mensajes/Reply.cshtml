@@ -1,68 +1,128 @@
-﻿@{
+﻿@model ResiApp.Models.Mensaje
+@{
     ViewBag.Title = "Responder Mensaje";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-@model ResiApp.Models.Mensaje
-
 <style>
-.msg-container {
-    max-width: 900px;
-    margin: 2.5rem auto;
-    background: #fff;
-    border-radius: 1.3rem;
-    box-shadow: 0 4px 24px #ebb3b370, 0 1.5px 12px #f8b6b938;
-    padding: 2.7rem 2.2rem 2.4rem 2.2rem;
-}
-.msg-title {
-    text-align: center;
-    color: #8a6d6d;
-    font-size: 1.6rem;
-    font-weight: 700;
-    margin-bottom: 2rem;
-}
-.msg-block {
-    background: #f9f8f8;
-    border-radius: 1rem;
-    padding: 1.2rem 1.5rem;
-    margin-bottom: 1.4rem;
-    box-shadow: 0 1.5px 8px #ffb6b920;
-}
-.msg-block label {
-    font-weight: 600; color: #ae3b62; margin-bottom: 0.5rem; display: block;
-}
-.form-control, .msg-mensaje {
-    border-radius: 1rem !important;
-    border: 1.5px solid #ead8e4 !important;
-    font-size: 1.06rem;
-    padding: 0.9rem 1.2rem !important;
-    background: #fff !important;
-    color: #7c7474;
-}
-.btn-rosa {
-    background: linear-gradient(45deg, #ff7b9b 60%, #ebb3b3 100%);
-    color: #fff !important;
-    font-weight: 700;
-    border-radius: 1.1rem;
-    border: none;
-    padding: 0.75rem 2.2rem;
-    font-size: 1.07rem;
-    box-shadow: 0 1.5px 10px #ffb6b933;
-    transition: background 0.2s;
-    margin-right: .7rem;
-}
-.btn-rosa:hover {
-    background: linear-gradient(45deg, #ce466d 60%, #ebb3b3 100%);
-    color: #fff !important;
-}
-@@media (max-width: 800px) {
-    .msg-container { padding: 1rem 0.4rem; }
-    .msg-title { font-size: 1.22rem; }
-}
-</style>
+    .mensaje-form-container {
+        max-width: 570px;
+        margin: 2.7rem auto 0 auto;
+        background: #fff;
+        border-radius: 0.75rem;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        padding: 2.5rem 2.2rem 2rem 2.2rem;
+    }
 
-<div class="msg-container">
-    <div class="msg-title">
+    .mensaje-form-title {
+        color: #1a202c;
+        font-size: 1.875rem;
+        font-weight: 700;
+        margin-bottom: 1.5rem;
+        text-align: center;
+        letter-spacing: -0.01em;
+    }
+
+    .mensaje-form-group {
+        margin-bottom: 1.5rem;
+    }
+
+    .mensaje-form-label {
+        font-weight: 600;
+        color: #374151;
+        margin-bottom: .5rem;
+        display: block;
+        font-size: 0.95rem;
+    }
+
+    .mensaje-form-control {
+        border-radius: 0.5rem !important;
+        border: 1px solid #d1d5db !important;
+        font-size: 0.95rem;
+        padding: 0.75rem 1rem !important;
+        background: #ffffff !important;
+        color: #374151;
+        width: 100%;
+        transition: all 0.15s ease;
+        box-sizing: border-box;
+    }
+
+        .mensaje-form-control:focus {
+            border-color: #2563eb !important;
+            background: #fff !important;
+            box-shadow: 0 0 0 3px rgba(37,99,235,0.1);
+            outline: none;
+        }
+
+        .mensaje-form-control:hover {
+            border-color: #9ca3af !important;
+        }
+
+    .mensaje-form-btns {
+        display: flex;
+        gap: 0.75rem;
+        margin-top: 2rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid #f3f4f6;
+    }
+
+    .btn-mensaje-guardar {
+        background: #2563eb;
+        color: #fff;
+        font-weight: 600;
+        padding: 0.7rem 1.75rem;
+        border-radius: 0.5rem;
+        border: none;
+        font-size: 0.95rem;
+        box-shadow: 0 1px 3px rgba(37,99,235,0.2);
+        transition: all 0.2s ease;
+        cursor: pointer;
+        flex: 1;
+    }
+
+        .btn-mensaje-guardar:hover {
+            background: #1d4ed8;
+            box-shadow: 0 2px 6px rgba(37,99,235,0.3);
+        }
+
+        .btn-mensaje-guardar i {
+            margin-right: 0.5rem;
+        }
+
+    .mensaje-back-link {
+        color: #6b7280;
+        font-weight: 500;
+        text-decoration: none;
+        padding: 0.7rem 1.75rem;
+        border: 1px solid #d1d5db;
+        border-radius: 0.5rem;
+        background: #ffffff;
+        transition: all 0.15s ease;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        flex: 1;
+    }
+
+        .mensaje-back-link:hover {
+            background: #f9fafb;
+            border-color: #9ca3af;
+            color: #374151;
+            text-decoration: none;
+        }
+
+        .mensaje-back-link i {
+            margin-right: 0.5rem;
+        }
+
+    .text-danger {
+        color: #dc2626;
+        font-size: 0.875rem;
+        margin-top: 0.25rem;
+        display: block;
+    }
+</style>
+<div class="mensaje-form-container">
+    <div class="mensaje-form-title">
         Responder a: @(Model.Receptor != null ? Model.Receptor.Nombres + " " + Model.Receptor.Apellidos : "Usuario")
     </div>
     @using (Html.BeginForm("Reply", "Mensajes", FormMethod.Post, new { enctype = "multipart/form-data" }))
@@ -70,29 +130,27 @@
         @Html.AntiForgeryToken()
         @Html.HiddenFor(m => m.IdReceptor)
         @Html.HiddenFor(m => m.MensajePadreId)
-
-        <div class="msg-block">
-            @Html.LabelFor(model => model.Asunto)
-            @Html.TextBoxFor(model => model.Asunto, new { @class = "form-control", @readonly = "readonly" })
+        <div class="mensaje-form-group">
+            @Html.LabelFor(model => model.Asunto, new { @class = "mensaje-form-label" })
+            @Html.TextBoxFor(model => model.Asunto, new { @class = "mensaje-form-control", @readonly = "readonly" })
             @Html.ValidationMessageFor(model => model.Asunto, "", new { @class = "text-danger" })
         </div>
-
-        <div class="msg-block">
-            @Html.LabelFor(model => model.Descripcion)
-            @Html.TextAreaFor(model => model.Descripcion, new { @class = "form-control", rows = 5 })
+        <div class="mensaje-form-group">
+            @Html.LabelFor(model => model.Descripcion, new { @class = "mensaje-form-label" })
+            @Html.TextAreaFor(model => model.Descripcion, new { @class = "mensaje-form-control", rows = 5, placeholder = "Escribe tu respuesta..." })
             @Html.ValidationMessageFor(model => model.Descripcion, "", new { @class = "text-danger" })
         </div>
-
-        <div class="msg-block">
-            @Html.LabelFor(model => model.ArchivoAdjunto, "Archivo Soporte (Opcional)")
-            <input type="file" name="archivo" class="form-control" accept=".pdf,application/pdf" />
+        <div class="mensaje-form-group">
+            <label class="mensaje-form-label">Archivo Soporte (Opcional)</label>
+            <input type="file" name="archivo" class="mensaje-form-control" accept=".pdf,application/pdf" />
         </div>
-
-        <div style="text-align: right;">
-            <button type="submit" class="btn-rosa">Enviar Respuesta</button>
-            <a href="@Url.Action("Index", "Mensajes")" class="btn-rosa" style="background: #ececec; color:#ae3b62;">Cancelar</a>
+        <div class="mensaje-form-btns">
+            <a href="@Url.Action("Index", "Mensajes")" class="mensaje-back-link">
+                <i class="fas fa-arrow-left"></i> Cancelar
+            </a>
+            <button type="submit" class="btn-mensaje-guardar">
+                <i class="fas fa-paper-plane"></i> Enviar Respuesta
+            </button>
         </div>
     }
 </div>
-
-

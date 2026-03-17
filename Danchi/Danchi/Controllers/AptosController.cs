@@ -35,8 +35,9 @@ namespace ResiApp.Controllers
         [AuthorizeRole("Administrador")]
         public ActionResult Create()
         {
-            ViewBag.IdTorre = new SelectList(_db.Torres, "IdTorre", "NombreTorre");
-            return View();
+            var torres = _db.Torres.ToList();
+            ViewBag.IdTorre = new SelectList(torres, "IdTorre", "NombreTorre");
+            return View(new Apto());
         }
 
         [HttpPost]

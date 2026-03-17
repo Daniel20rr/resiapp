@@ -1,55 +1,155 @@
 ﻿@model ResiApp.Models.Mensaje
-
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Editar Mensaje";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<style>
+    .mensaje-form-container {
+        max-width: 570px;
+        margin: 2.7rem auto 0 auto;
+        background: #fff;
+        border-radius: 0.75rem;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        padding: 2.5rem 2.2rem 2rem 2.2rem;
+    }
 
-<h2>Edit</h2>
+    .mensaje-form-title {
+        color: #1a202c;
+        font-size: 1.875rem;
+        font-weight: 700;
+        margin-bottom: 1.5rem;
+        text-align: center;
+        letter-spacing: -0.01em;
+    }
 
-@using (Html.BeginForm("Edit", "Mensajes", FormMethod.Post, new { enctype = "multipart/form-data" }))
-{
-    @Html.AntiForgeryToken()
+    .mensaje-form-group {
+        margin-bottom: 1.5rem;
+    }
 
-<div class="form-horizontal">
-    <h4>Mensaje</h4>
-    <hr />
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    @Html.HiddenFor(model => model.IdMensaje)
-    @Html.HiddenFor(model => model.IdUsuario)
+    .mensaje-form-label {
+        font-weight: 600;
+        color: #374151;
+        margin-bottom: .5rem;
+        display: block;
+        font-size: 0.95rem;
+    }
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.Asunto, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Asunto, new { htmlAttributes = new { @class = "form-control" } })
+    .mensaje-form-control {
+        border-radius: 0.5rem !important;
+        border: 1px solid #d1d5db !important;
+        font-size: 0.95rem;
+        padding: 0.75rem 1rem !important;
+        background: #ffffff !important;
+        color: #374151;
+        width: 100%;
+        transition: all 0.15s ease;
+        box-sizing: border-box;
+    }
+
+        .mensaje-form-control:focus {
+            border-color: #2563eb !important;
+            background: #fff !important;
+            box-shadow: 0 0 0 3px rgba(37,99,235,0.1);
+            outline: none;
+        }
+
+        .mensaje-form-control:hover {
+            border-color: #9ca3af !important;
+        }
+
+    .mensaje-form-btns {
+        display: flex;
+        gap: 0.75rem;
+        margin-top: 2rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid #f3f4f6;
+    }
+
+    .btn-mensaje-guardar {
+        background: #2563eb;
+        color: #fff;
+        font-weight: 600;
+        padding: 0.7rem 1.75rem;
+        border-radius: 0.5rem;
+        border: none;
+        font-size: 0.95rem;
+        box-shadow: 0 1px 3px rgba(37,99,235,0.2);
+        transition: all 0.2s ease;
+        cursor: pointer;
+        flex: 1;
+    }
+
+        .btn-mensaje-guardar:hover {
+            background: #1d4ed8;
+            box-shadow: 0 2px 6px rgba(37,99,235,0.3);
+        }
+
+        .btn-mensaje-guardar i {
+            margin-right: 0.5rem;
+        }
+
+    .mensaje-back-link {
+        color: #6b7280;
+        font-weight: 500;
+        text-decoration: none;
+        padding: 0.7rem 1.75rem;
+        border: 1px solid #d1d5db;
+        border-radius: 0.5rem;
+        background: #ffffff;
+        transition: all 0.15s ease;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        flex: 1;
+    }
+
+        .mensaje-back-link:hover {
+            background: #f9fafb;
+            border-color: #9ca3af;
+            color: #374151;
+            text-decoration: none;
+        }
+
+        .mensaje-back-link i {
+            margin-right: 0.5rem;
+        }
+
+    .text-danger {
+        color: #dc2626;
+        font-size: 0.875rem;
+        margin-top: 0.25rem;
+        display: block;
+    }
+</style>
+<div class="mensaje-form-container">
+    <div class="mensaje-form-title">Editar Mensaje</div>
+    @using (Html.BeginForm("Edit", "Mensajes", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(model => model.IdMensaje)
+        @Html.HiddenFor(model => model.IdUsuario)
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="mensaje-form-group">
+            @Html.LabelFor(model => model.Asunto, new { @class = "mensaje-form-label" })
+            @Html.TextBoxFor(model => model.Asunto, new { @class = "mensaje-form-control" })
             @Html.ValidationMessageFor(model => model.Asunto, "", new { @class = "text-danger" })
         </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.Descripcion, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Descripcion, new { htmlAttributes = new { @class = "form-control" } })
+        <div class="mensaje-form-group">
+            @Html.LabelFor(model => model.Descripcion, new { @class = "mensaje-form-label" })
+            @Html.TextAreaFor(model => model.Descripcion, new { @class = "mensaje-form-control", rows = 5 })
             @Html.ValidationMessageFor(model => model.Descripcion, "", new { @class = "text-danger" })
         </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.ArchivoAdjunto, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            <input type="file" name="archivo" id="archivo" class="form-control" accept=".pdf,application/pdf" />
-            @Html.ValidationMessageFor(model => model.ArchivoAdjunto, "", new { @class = "text-danger" })
+        <div class="mensaje-form-group">
+            <label class="mensaje-form-label">Archivo Adjunto (Opcional)</label>
+            <input type="file" name="archivo" class="mensaje-form-control" accept=".pdf,application/pdf" />
         </div>
-    </div>
-
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Save" class="btn btn-default" />
+        <div class="mensaje-form-btns">
+            <a href="@Url.Action("Index", "Mensajes")" class="mensaje-back-link">
+                <i class="fas fa-arrow-left"></i> Cancelar
+            </a>
+            <button type="submit" class="btn-mensaje-guardar">
+                <i class="fas fa-save"></i> Guardar
+            </button>
         </div>
-    </div>
-</div>
-}
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
+    }
 </div>

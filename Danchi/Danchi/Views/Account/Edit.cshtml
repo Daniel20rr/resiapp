@@ -1,147 +1,175 @@
 ﻿@model ResiApp.Models.Usuario
-
 @{
     ViewBag.Title = "Editar Usuario";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 <style>
-.user-edit-container {
-    max-width: 550px;
-    margin: 2.5rem auto;
-    background: #fff;
-    border-radius: 1.5rem;
-    box-shadow: 0 8px 36px #b9b6ec33, 0 2px 18px #7bafd633;
-    padding: 2.1rem 2.2rem 1.8rem 2.2rem;
-    display: flex;
-    flex-direction: column;
-    gap: 1.1rem;
-}
-.user-edit-title {
-    color: #33203b;
-    font-size: 2.2rem;
-    font-weight: 800;
-    text-align: center;
-    margin-bottom: 1.2rem;
-    letter-spacing: 0.01em;
-}
-.user-form-group {
-    display: flex;
-    flex-direction: column;
-    gap: 0.36rem;
-    margin-bottom: 0.5rem;
-}
-.user-form-label {
-    font-weight: 600;
-    color: #6a11cb;
-    font-size: 1rem;
-    margin-bottom: 0.08rem;
-    letter-spacing: 0.01em;
-}
-.user-form-control, select {
-    border-radius: 0.9rem !important;
-    border: 1.5px solid #d7def9 !important;
-    font-size: 1.09rem;
-    padding: 0.8rem 1.2rem !important;
-    background: #f9faff !important;
-    color: #333;
-    width: 100%;
-    transition: box-shadow .2s, border .2s;
-}
-.user-form-control:focus, select:focus {
-    border-color: #7bafd6 !important;
-    background: #fff !important;
-    box-shadow: 0 2px 12px #7bafd634;
-}
-.btn-actualizar-usuario {
-    background: linear-gradient(90deg, #6a11cb 20%, #2575fc 100%);
-    color: #fff;
-    font-weight: 700;
-    padding: 0.95rem 0;
-    border-radius: 1rem;
-    border: none;
-    font-size: 1.18rem;
-    box-shadow: 0 2px 10px #7bafd633;
-    width: 100%;
-    margin-top: 0.9rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: .7rem;
-    transition: background 0.18s;
-}
-.btn-actualizar-usuario:hover {
-    background: linear-gradient(90deg, #2575fc 60%, #6a11cb 100%);
-    color: #fff;
-}
-.back-link {
-    color: #6a11cb;
-    font-weight: 600;
-    text-decoration: none;
-    margin-top: 1.2rem;
-    display: inline-block;
-}
-.back-link:hover {
-    color: #2575fc;
-    text-decoration: underline;
-}
-@@media (max-width: 700px) {
-    .user-edit-container { padding: 1.1rem 0.5rem; max-width: 97vw; }
-    .user-edit-title { font-size: 1.23rem;}
-}
-</style>
+    .user-form-container {
+        max-width: 570px;
+        margin: 2.7rem auto 0 auto;
+        background: #fff;
+        border-radius: 0.75rem;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        padding: 2.5rem 2.2rem 2rem 2.2rem;
+    }
 
-<div class="user-edit-container">
-    <div class="user-edit-title">Editar Usuario</div>
+    .user-form-title {
+        color: #1a202c;
+        font-size: 1.875rem;
+        font-weight: 700;
+        margin-bottom: 1.5rem;
+        text-align: center;
+        letter-spacing: -0.01em;
+    }
+
+    .user-form-group {
+        margin-bottom: 1.5rem;
+    }
+
+    .user-form-label {
+        font-weight: 600;
+        color: #374151;
+        margin-bottom: .5rem;
+        display: block;
+        font-size: 0.95rem;
+    }
+
+    .user-form-control {
+        border-radius: 0.5rem !important;
+        border: 1px solid #d1d5db !important;
+        font-size: 0.95rem;
+        padding: 0.75rem 1rem !important;
+        background: #ffffff !important;
+        color: #374151;
+        width: 100%;
+        transition: all 0.15s ease;
+        box-sizing: border-box;
+    }
+
+        .user-form-control:focus {
+            border-color: #2563eb !important;
+            background: #fff !important;
+            box-shadow: 0 0 0 3px rgba(37,99,235,0.1);
+            outline: none;
+        }
+
+        .user-form-control:hover {
+            border-color: #9ca3af !important;
+        }
+
+    .user-form-btns {
+        display: flex;
+        gap: 0.75rem;
+        margin-top: 2rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid #f3f4f6;
+    }
+
+    .btn-user-guardar {
+        background: #2563eb;
+        color: #fff;
+        font-weight: 600;
+        padding: 0.7rem 1.75rem;
+        border-radius: 0.5rem;
+        border: none;
+        font-size: 0.95rem;
+        box-shadow: 0 1px 3px rgba(37,99,235,0.2);
+        transition: all 0.2s ease;
+        cursor: pointer;
+        flex: 1;
+    }
+
+        .btn-user-guardar:hover {
+            background: #1d4ed8;
+            box-shadow: 0 2px 6px rgba(37,99,235,0.3);
+        }
+
+        .btn-user-guardar i {
+            margin-right: 0.5rem;
+        }
+
+    .user-back-link {
+        color: #6b7280;
+        font-weight: 500;
+        text-decoration: none;
+        padding: 0.7rem 1.75rem;
+        border: 1px solid #d1d5db;
+        border-radius: 0.5rem;
+        background: #ffffff;
+        transition: all 0.15s ease;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        flex: 1;
+    }
+
+        .user-back-link:hover {
+            background: #f9fafb;
+            border-color: #9ca3af;
+            color: #374151;
+            text-decoration: none;
+        }
+
+        .user-back-link i {
+            margin-right: 0.5rem;
+        }
+
+    .text-danger {
+        color: #dc2626;
+        font-size: 0.875rem;
+        margin-top: 0.25rem;
+        display: block;
+    }
+</style>
+<div class="user-form-container">
+    <div class="user-form-title">Editar Usuario</div>
     @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.IdUsuario)
-
-        <div class="user-form-group">
-            @Html.LabelFor(model => model.Nombres, htmlAttributes: new { @class = "user-form-label" })
-            @Html.EditorFor(model => model.Nombres, new { htmlAttributes = new { @class = "user-form-control", placeholder = "Nombres..." } })
-            @Html.ValidationMessageFor(model => model.Nombres, "", new { @class = "text-danger" })
-        </div>
-        <div class="user-form-group">
-            @Html.LabelFor(model => model.Apellidos, htmlAttributes: new { @class = "user-form-label" })
-            @Html.EditorFor(model => model.Apellidos, new { htmlAttributes = new { @class = "user-form-control", placeholder = "Apellidos..." } })
-            @Html.ValidationMessageFor(model => model.Apellidos, "", new { @class = "text-danger" })
-        </div>
-        <div class="user-form-group">
-            @Html.LabelFor(model => model.Correo, htmlAttributes: new { @class = "user-form-label" })
-            @Html.EditorFor(model => model.Correo, new { htmlAttributes = new { @class = "user-form-control", placeholder = "Correo..." } })
-            @Html.ValidationMessageFor(model => model.Correo, "", new { @class = "text-danger" })
-        </div>
-        <div class="user-form-group">
-            @Html.LabelFor(model => model.Telefono, htmlAttributes: new { @class = "user-form-label" })
-            @Html.EditorFor(model => model.Telefono, new { htmlAttributes = new { @class = "user-form-control", placeholder = "Teléfono o Celular..." } })
-            @Html.ValidationMessageFor(model => model.Telefono, "", new { @class = "text-danger" })
-        </div>
-        <div class="user-form-group">
-            @Html.LabelFor(model => model.IdRol, "Rol", htmlAttributes: new { @class = "user-form-label" })
-            @Html.DropDownListFor(model => model.IdRol, (IEnumerable<SelectListItem>)ViewBag.Rol, "-- Selecciona un Rol --", new { @class = "user-form-control" })
-            @Html.ValidationMessageFor(model => model.IdRol, "", new { @class = "text-danger" })
-        </div>
-        <div class="user-form-group">
-            @Html.LabelFor(model => model.NuevaContrasena, htmlAttributes: new { @class = "user-form-label" })
-            @Html.EditorFor(model => model.NuevaContrasena, new { htmlAttributes = new { @class = "user-form-control", placeholder = "Nueva Contraseña..." } })
-            @Html.ValidationMessageFor(model => model.NuevaContrasena, "", new { @class = "text-danger" })
-        </div>
-
         @Html.HiddenFor(model => model.Contrasena)
         @Html.HiddenFor(model => model.HashIV)
         @Html.HiddenFor(model => model.HashKey)
         @Html.HiddenFor(model => model.FechaCreacion)
         @Html.HiddenFor(model => model.UsuarioCreacion)
-
-        <button type="submit" class="btn-actualizar-usuario">
-            <i class="fas fa-save"></i> Guardar Cambios
-        </button>
+        <div class="user-form-group">
+            @Html.LabelFor(model => model.Nombres, new { @class = "user-form-label" })
+            @Html.TextBoxFor(model => model.Nombres, new { @class = "user-form-control", placeholder = "Nombres..." })
+            @Html.ValidationMessageFor(model => model.Nombres, "", new { @class = "text-danger" })
+        </div>
+        <div class="user-form-group">
+            @Html.LabelFor(model => model.Apellidos, new { @class = "user-form-label" })
+            @Html.TextBoxFor(model => model.Apellidos, new { @class = "user-form-control", placeholder = "Apellidos..." })
+            @Html.ValidationMessageFor(model => model.Apellidos, "", new { @class = "text-danger" })
+        </div>
+        <div class="user-form-group">
+            @Html.LabelFor(model => model.Correo, new { @class = "user-form-label" })
+            @Html.TextBoxFor(model => model.Correo, new { @class = "user-form-control", placeholder = "Correo..." })
+            @Html.ValidationMessageFor(model => model.Correo, "", new { @class = "text-danger" })
+        </div>
+        <div class="user-form-group">
+            @Html.LabelFor(model => model.Telefono, new { @class = "user-form-label" })
+            @Html.TextBoxFor(model => model.Telefono, new { @class = "user-form-control", placeholder = "Teléfono o Celular..." })
+            @Html.ValidationMessageFor(model => model.Telefono, "", new { @class = "text-danger" })
+        </div>
+        <div class="user-form-group">
+            @Html.LabelFor(model => model.IdRol, "Rol", new { @class = "user-form-label" })
+            @Html.DropDownListFor(model => model.IdRol, (IEnumerable<SelectListItem>)ViewBag.Rol, "-- Selecciona un Rol --", new { @class = "user-form-control" })
+            @Html.ValidationMessageFor(model => model.IdRol, "", new { @class = "text-danger" })
+        </div>
+        <div class="user-form-group">
+            @Html.LabelFor(model => model.NuevaContrasena, new { @class = "user-form-label" })
+            @Html.PasswordFor(model => model.NuevaContrasena, new { @class = "user-form-control", placeholder = "Nueva Contraseña (dejar vacío para no cambiar)..." })
+            @Html.ValidationMessageFor(model => model.NuevaContrasena, "", new { @class = "text-danger" })
+        </div>
+        <div class="user-form-btns">
+            <a href="@Url.Action("Index", "Account")" class="user-back-link">
+                <i class="fas fa-arrow-left"></i> Cancelar
+            </a>
+            <button type="submit" class="btn-user-guardar">
+                <i class="fas fa-save"></i> Guardar Cambios
+            </button>
+        </div>
     }
-    <a href="@Url.Action("Index", "Usuarios")" class="back-link">
-        <i class="fas fa-arrow-left"></i> Volver a la lista
-    </a>
 </div>
-

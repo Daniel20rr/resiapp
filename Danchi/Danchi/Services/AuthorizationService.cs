@@ -11,20 +11,25 @@ namespace ResiApp.Services
 {
     public class AuthorizationService : IAuthorizationService
     {
-        private readonly ResiAppDBContext db = new ResiAppDBContext();
-        private readonly IPasswordEncripter _passordEncripter = new PasswordEncripter();
+        private readonly ResiAppDBContext _db;
+        private readonly IPasswordEncripter _passwordEncripter;
+
+        public AuthorizationService(ResiAppDBContext db, IPasswordEncripter passwordEncripter)
+        {
+            _db = db;
+            _passwordEncripter = passwordEncripter;
+        }
 
         public AuthResults Auth(string user, string password, out Usuario usuario)
         {
-            usuario = db.Usuarios.Where(x => x.Correo.Equals(user)).FirstOrDefault();
-
+            usuario = _db.Usuarios.Where(x => x.Correo.Equals(user)).FirstOrDefault();
             if (usuario == null)
                 return AuthResults.NotExists;
 
-            password = _passordEncripter.Encript(password, new List<byte[]>()
+            password = _passwordEncripter.Encript(password, new List<byte[]>()
                 .AddHash(usuario.HashKey)
-                .AddHash(usuario.HashIV)
-                );
+                .AddHash(usuario.HashIV));
+
             if (password != usuario.Contrasena)
                 return AuthResults.PasswordNotMatch;
 

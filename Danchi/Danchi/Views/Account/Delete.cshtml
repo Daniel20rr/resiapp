@@ -1,115 +1,140 @@
 ﻿@model ResiApp.Models.Usuario
-
 @{
     ViewBag.Title = "Eliminar Usuario";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 <style>
-    .delete-user-container {
-        max-width: 480px;
-        margin: 2.8rem auto 0 auto;
+    .user-delete-container {
+        max-width: 570px;
+        margin: 2.7rem auto 0 auto;
         background: #fff;
-        border-radius: 1.2rem;
-        box-shadow: 0 8px 32px #7bafd634, 0 2px 12px #6a11cb18;
-        padding: 2.2rem 2rem 2rem 2rem;
-        display: flex;
-        flex-direction: column;
-        gap: .7rem;
+        border-radius: 0.75rem;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        padding: 2.5rem 2.2rem 2rem 2.2rem;
     }
 
-    .delete-user-title {
-        font-size: 2rem;
-        color: #ce466d;
-        font-weight: 900;
-        text-align: center;
-        margin-bottom: .5rem;
-    }
-
-    .delete-user-question {
-        color: #7c7474;
-        font-size: 1.16rem;
-        font-weight: 500;
-        text-align: center;
-        margin-bottom: 1.3rem;
-    }
-
-    .delete-user-summary dt {
+    .user-delete-title {
+        color: #dc2626;
+        font-size: 1.875rem;
         font-weight: 700;
-        color: #ae3b62;
-        margin-top: 0.4rem;
-        margin-bottom: 0;
+        margin-bottom: 0.5rem;
+        text-align: center;
+        letter-spacing: -0.01em;
     }
 
-    .delete-user-summary dd {
-        margin-bottom: .7rem;
-        color: #4b4b4b;
+    .user-delete-subtitle {
+        color: #6b7280;
+        font-size: 1rem;
+        text-align: center;
+        margin-bottom: 2rem;
     }
 
-    .delete-btns-row {
-        display: flex;
-        gap: 1rem;
-        justify-content: flex-start;
-        align-items: center;
-        margin-top: 1.3rem;
+    .delete-dl {
+        background: #f9fafb;
+        border-radius: 0.5rem;
+        border: 1px solid #e5e7eb;
+        padding: 1.2rem 1.5rem;
+        margin-bottom: 2rem;
     }
 
-    .btn-eliminar {
-        background: linear-gradient(45deg, #ff7b9b 60%, #ce466d 100%);
-        color: #fff;
-        font-weight: 700;
-        border-radius: 1rem;
-        border: none;
-        padding: 0.7rem 2.2rem;
-        font-size: 1.09rem;
-        box-shadow: 0 2px 7px #ffb6b933;
-        transition: background 0.15s;
-    }
-
-        .btn-eliminar:hover {
-            background: linear-gradient(45deg, #ae3b62 60%, #ff7b9b 100%);
+        .delete-dl dt {
+            font-weight: 600;
+            color: #374151;
+            margin-top: 0.75rem;
+            font-size: 0.875rem;
         }
 
-    .btn-cancelar {
-        color: #ae3b62;
-        font-weight: 600;
-        text-decoration: none;
-        border-radius: 0.7rem;
-        padding: 0.7rem 1.1rem;
-        transition: color 0.18s, background 0.18s;
+            .delete-dl dt:first-child {
+                margin-top: 0;
+            }
+
+        .delete-dl dd {
+            color: #6b7280;
+            font-size: 0.95rem;
+            margin-bottom: 0.25rem;
+            margin-left: 0;
+        }
+
+    .user-delete-btns {
+        display: flex;
+        gap: 0.75rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid #f3f4f6;
     }
 
-        .btn-cancelar:hover {
-            background: #ffe6f1;
-            color: #ff7b9b;
-            text-decoration: underline;
+    .btn-user-delete {
+        background: #dc2626;
+        color: #fff;
+        font-weight: 600;
+        padding: 0.7rem 1.75rem;
+        border-radius: 0.5rem;
+        border: none;
+        font-size: 0.95rem;
+        box-shadow: 0 1px 3px rgba(220,38,38,0.2);
+        transition: all 0.2s ease;
+        cursor: pointer;
+        flex: 1;
+    }
+
+        .btn-user-delete:hover {
+            background: #b91c1c;
+            box-shadow: 0 2px 6px rgba(220,38,38,0.3);
+        }
+
+        .btn-user-delete i {
+            margin-right: 0.5rem;
+        }
+
+    .user-back-link {
+        color: #6b7280;
+        font-weight: 500;
+        text-decoration: none;
+        padding: 0.7rem 1.75rem;
+        border: 1px solid #d1d5db;
+        border-radius: 0.5rem;
+        background: #ffffff;
+        transition: all 0.15s ease;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        flex: 1;
+    }
+
+        .user-back-link:hover {
+            background: #f9fafb;
+            border-color: #9ca3af;
+            color: #374151;
+            text-decoration: none;
+        }
+
+        .user-back-link i {
+            margin-right: 0.5rem;
         }
 </style>
-
-<div class="delete-user-container">
-    <div class="delete-user-title">Eliminar Usuario</div>
-    <div class="delete-user-question">
-        ¿Está seguro que deseas eliminar el usuario con la siguiente información?
+<div class="user-delete-container">
+    <div class="user-delete-title">¿Eliminar Usuario?</div>
+    <div class="user-delete-subtitle">
+        ¿Estás seguro que deseas eliminar este usuario?<br>
+        <span style="color:#dc2626;">Esta acción no se puede deshacer.</span>
     </div>
-    <dl class="delete-user-summary">
+    <dl class="delete-dl">
         <dt>@Html.DisplayNameFor(model => model.Nombres)</dt>
         <dd>@Html.DisplayFor(model => model.Nombres)</dd>
-
         <dt>@Html.DisplayNameFor(model => model.Apellidos)</dt>
         <dd>@Html.DisplayFor(model => model.Apellidos)</dd>
-
         <dt>@Html.DisplayNameFor(model => model.Correo)</dt>
         <dd>@Html.DisplayFor(model => model.Correo)</dd>
     </dl>
-
     @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()
-        <div class="delete-btns-row">
-            <button type="submit" class="btn-eliminar"><i class="fas fa-trash"></i> Eliminar</button>
-            <a href="@Url.Action("Index", "Usuarios")" class="btn-cancelar">
+        <div class="user-delete-btns">
+            <a href="@Url.Action("Index", "Account")" class="user-back-link">
                 <i class="fas fa-arrow-left"></i> Cancelar
             </a>
+            <button type="submit" class="btn-user-delete">
+                <i class="fas fa-trash-alt"></i> Eliminar
+            </button>
         </div>
     }
 </div>

@@ -1,82 +1,83 @@
 ﻿@{
     Layout = null;
 }
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="utf-8" />
     <title>Bienvenidos a ResiApp</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
-
     <style>
-        /* Estilos para el cuerpo y el HTML para que ocupen toda la pantalla */
+        /* Estilos base */
         html, body {
             height: 100%;
             margin: 0;
             font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
         }
 
-        /* El contenedor principal que tendrá la imagen de fondo */
+        /* Contenedor principal con imagen de fondo */
         .hero-container {
-            height: 100vh; /* Ocupa el 100% de la altura de la pantalla */
-            /* --- ¡IMPORTANTE! --- */
-            /* Asegúrate de que esta ruta coincida con donde guardaste tu imagen */
+            height: 100vh;
             background-image: url('/Content/images/inicio-background.jpg');
-            background-size: cover; /* Hace que la imagen cubra todo el espacio sin deformarse */
-            background-position: center center; /* Centra la imagen */
-            /* Usamos Flexbox para centrar el contenido fácilmente */
+            background-size: cover;
+            background-position: center center;
             display: flex;
             justify-content: center;
             align-items: center;
         }
 
-        /* La caja de contenido que va sobre la imagen */
+        /* Caja de contenido profesional */
         .hero-content {
             text-align: center;
             color: white;
-            background-color: rgba(0, 0, 0, 0.6); /* Fondo oscuro semitransparente para legibilidad */
-            padding: 40px;
-            border-radius: 15px; /* Bordes redondeados */
-            max-width: 650px; /* Ancho máximo para el texto */
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4); /* Sombra sutil para darle profundidad */
+            background-color: rgba(26, 32, 44, 0.85); /* Gris oscuro profesional */
+            padding: 50px 40px;
+            border-radius: 12px;
+            max-width: 650px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
             .hero-content h1 {
-                font-size: 3rem; /* Tamaño del título */
+                font-size: 3rem;
                 font-weight: 700;
-                margin-bottom: 0.5rem;
+                margin-bottom: 0.8rem;
+                letter-spacing: -0.5px;
             }
 
             .hero-content p {
-                font-size: 1.25rem; /* Tamaño del subtítulo */
-                margin-bottom: 1.5rem;
+                font-size: 1.25rem;
+                margin-bottom: 2rem;
+                color: #e2e8f0; /* Gris claro para mejor legibilidad */
+                line-height: 1.6;
             }
 
-        /* Estilo para el botón, basado en el diseño que te gustó */
+        /* Botón profesional con azul corporativo */
         .btn-portal {
-            background-color: #28a745; /* Verde del diseño */
+            background-color: #2563eb; /* Azul profesional */
             border: none;
             color: white;
-            padding: 12px 30px;
+            padding: 14px 40px;
             font-size: 1.1rem;
             font-weight: 600;
-            border-radius: 50px; /* Botón con bordes muy redondeados */
+            border-radius: 8px;
             text-decoration: none;
-            transition: background-color 0.3s ease, transform 0.2s ease;
+            display: inline-block;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
         }
 
             .btn-portal:hover {
-                background-color: #218838; /* Verde un poco más oscuro al pasar el mouse */
+                background-color: #1d4ed8; /* Azul más oscuro */
                 color: white;
-                transform: scale(1.05); /* Efecto de crecimiento sutil */
+                text-decoration: none;
+                transform: translateY(-2px);
+                box-shadow: 0 6px 16px rgba(37, 99, 235, 0.4);
             }
     </style>
 </head>
 <body>
-
     <div class="hero-container">
         <div class="hero-content">
             <h1>Bienvenido a ResiApp</h1>
@@ -84,6 +85,5 @@
             <a href="@Url.Action("Login", "Account")" class="btn-portal">Inicio Sesión</a>
         </div>
     </div>
-
 </body>
 </html>

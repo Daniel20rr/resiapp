@@ -1,10 +1,8 @@
 ﻿@model IEnumerable<ResiApp.Models.Aviso>
-
 @{
     ViewBag.Title = "Avisos";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 @if (TempData["SuccessMessage"] != null)
 {
     <script>
@@ -17,138 +15,148 @@
         });
     </script>
 }
-
 <style>
     .aviso-container {
         max-width: 1100px;
-        margin: 2.7rem auto 2.5rem auto;
-        background: #fff;
-        border-radius: 1.25rem;
-        box-shadow: 0 4px 28px #ebb3b370, 0 2px 10px #f8b6b928;
-        padding: 2.2rem 1.5rem 1.7rem 1.5rem;
+        margin: 2.7rem auto 0 auto;
+        background: #ffffff;
+        border-radius: 0.75rem;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        padding: 2rem 2.5rem 2.5rem 2.5rem;
     }
 
     .aviso-title {
-        color: #8a6d6d;
+        text-align: center;
+        color: #1a202c;
         font-size: 2rem;
         font-weight: 700;
-        text-align: center;
         margin-bottom: 2rem;
+        letter-spacing: -0.01em;
     }
 
     .aviso-actions {
-        display: flex;
-        justify-content: flex-start;
-        margin-bottom: 1.7rem;
+        margin-bottom: 1.5rem;
     }
 
-    .btn-rosa {
-        background: linear-gradient(45deg, #ff7b9b 60%, #ebb3b3 100%);
-        color: #fff !important;
-        font-weight: 700;
-        border-radius: 1.1rem;
+    .btn-nuevo-aviso {
+        background: #2563eb;
+        color: #fff;
+        font-weight: 600;
+        border-radius: 0.5rem;
+        padding: 0.65rem 1.5rem;
         border: none;
-        padding: 0.63rem 1.38rem;
-        font-size: 1.05rem;
-        box-shadow: 0 1.5px 10px #ffb6b933;
-        transition: background 0.2s;
+        font-size: 0.95rem;
+        box-shadow: 0 1px 3px rgba(37,99,235,0.2);
+        transition: all 0.2s ease;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
     }
 
-        .btn-rosa:hover {
-            background: linear-gradient(45deg, #ce466d 60%, #ebb3b3 100%);
-            color: #fff !important;
+        .btn-nuevo-aviso:hover {
+            background: #1d4ed8;
+            color: #fff;
+            text-decoration: none;
         }
 
     .aviso-table {
         width: 100%;
-        border-radius: 1.1rem 1.1rem 1rem 1rem;
+        background: #fff;
+        border-radius: 0.5rem;
         overflow: hidden;
-        border-collapse: separate;
-        border-spacing: 0;
-        box-shadow: 0 2px 8px #ebb3b333;
-        margin-bottom: 0;
+        border: 1px solid #e5e7eb;
     }
 
-        .aviso-table thead tr {
-            background: linear-gradient(90deg, #ebb3b3 85%, #fff 100%);
+        .aviso-table th, .aviso-table td {
+            padding: 1rem 1.25rem;
+            text-align: left;
+            border-bottom: 1px solid #f3f4f6;
+            font-size: 0.95rem;
         }
 
         .aviso-table th {
-            color: #ad7b7b;
-            font-weight: 800;
-            padding: 0.85rem 0.65rem;
-            font-size: 1.08rem;
-            border-bottom: 2px solid #ffb6b933;
-            border-top: none;
-            text-align: left;
+            background: #f8fafc;
+            color: #475569;
+            font-weight: 600;
+            border-bottom: 1px solid #e5e7eb;
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.025em;
+        }
+
+        .aviso-table tbody tr:hover {
+            background-color: #f9fafb;
+        }
+
+        .aviso-table tr:last-child td {
+            border-bottom: none;
         }
 
         .aviso-table td {
-            padding: 0.72rem 0.65rem;
-            font-size: 1.07rem;
-            color: #7c7474;
-            background: #fff;
-            border-bottom: 1.5px solid #f4dade;
-            vertical-align: middle;
+            color: #374151;
         }
 
-        .aviso-table tr:nth-child(even) td {
-            background: #fff6f6;
-        }
+    .btn-action-aviso {
+        font-weight: 500;
+        padding: 0.4rem 0.9rem;
+        border-radius: 0.4rem;
+        font-size: 0.875rem;
+        text-decoration: none;
+        transition: all 0.15s ease;
+        margin: 0 0.15rem;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.3rem;
+    }
 
-        .aviso-table tbody tr:hover td {
-            background: #ffeff5;
-            transition: background 0.23s;
-        }
+    .btn-aviso-edit {
+        background: #eff6ff;
+        color: #2563eb;
+        border: 1px solid #bfdbfe;
+    }
 
-        .aviso-table a {
-            color: #ce466d !important;
-            font-weight: 700;
-            margin-right: 0.65rem;
+        .btn-aviso-edit:hover {
+            background: #dbeafe;
+            color: #1d4ed8;
             text-decoration: none;
-            transition: color 0.19s;
         }
 
-            .aviso-table a:hover {
-                color: #ff7b9b !important;
-                text-decoration: underline;
-            }
+    .btn-aviso-del {
+        background: #fef2f2;
+        color: #dc2626;
+        border: 1px solid #fecaca;
+    }
+
+        .btn-aviso-del:hover {
+            background: #fee2e2;
+            color: #b91c1c;
+            text-decoration: none;
+        }
 
     .estado-icon {
-        font-size: 1.12rem;
-        color: #41c97b;
-        margin-left: .3rem;
+        font-size: 1.1rem;
+        color: #16a34a;
     }
 
     .estado-inactivo {
-        color: #bbb;
-    }
-
-    @@media (max-width: 900px) {
-        .aviso-container {
-            padding: 1.2rem 0.3rem;
-        }
-
-        .aviso-title {
-            font-size: 1.28rem;
-        }
+        color: #9ca3af;
     }
 </style>
-
 <div class="aviso-container">
     <div class="aviso-title">Avisos</div>
     <div class="aviso-actions">
-        @Html.ActionLink("Nuevo Aviso", "Create", null, new { @class = "btn-rosa" })
+        <a href="@Url.Action("Create", "Avisos")" class="btn-nuevo-aviso">
+            <i class="fas fa-plus"></i> Nuevo Aviso
+        </a>
     </div>
-
     <table class="aviso-table">
         <thead>
             <tr>
                 <th>@Html.DisplayNameFor(model => model.Titulo)</th>
                 <th>@Html.DisplayNameFor(model => model.Descripcion)</th>
                 <th>@Html.DisplayNameFor(model => model.Estado)</th>
-                <th></th>
-                <th></th>
+                <th style="text-align:center;" colspan="2">Acciones</th>
             </tr>
         </thead>
         <tbody>
@@ -167,11 +175,15 @@
                             <span class="estado-icon estado-inactivo" title="Inactivo"><i class="fas fa-times-circle"></i></span>
                         }
                     </td>
-                    <td>
-                        @Html.ActionLink("Editar", "Edit", new { id = item.IdAviso })
+                    <td style="text-align:center;">
+                        <a href="@Url.Action("Edit", "Avisos", new { id = item.IdAviso })" class="btn-action-aviso btn-aviso-edit">
+                            <i class="fas fa-edit"></i> Editar
+                        </a>
                     </td>
-                    <td>
-                        @Html.ActionLink("Eliminar", "Delete", new { id = item.IdAviso })
+                    <td style="text-align:center;">
+                        <a href="@Url.Action("Delete", "Avisos", new { id = item.IdAviso })" class="btn-action-aviso btn-aviso-del">
+                            <i class="fas fa-trash-alt"></i> Eliminar
+                        </a>
                     </td>
                 </tr>
             }

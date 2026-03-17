@@ -45,7 +45,7 @@ namespace ResiApp.Controllers
         [AllowAnonymous]
         public ActionResult Login()
         {
-            return View();
+            return View(new Login()); // ← CAMBIO APLICADO
         }
 
         [HttpPost]
@@ -55,7 +55,7 @@ namespace ResiApp.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return View(model); // Si hay error de validación, vuelve a mostrar la vista.
+                return View(model);
             }
 
             Usuario usuario = new Usuario();
@@ -82,7 +82,6 @@ namespace ResiApp.Controllers
                     return View(model);
             }
         }
-
 
         private void CookieUpdate(Usuario usuario)
         {
@@ -112,7 +111,6 @@ namespace ResiApp.Controllers
             }
         }
 
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult LogOff()
@@ -129,7 +127,6 @@ namespace ResiApp.Controllers
             ViewBag.Rol = _db.Rol.Select(r => new SelectListItem { Value = r.IdRol.ToString(), Text = r.DescripcionRol }).ToList();
             return View();
         }
-
 
         [HttpPost]
         [ValidateAntiForgeryToken]

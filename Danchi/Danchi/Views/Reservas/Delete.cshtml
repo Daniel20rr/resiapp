@@ -1,86 +1,125 @@
 ﻿@model ResiApp.Models.Reserva
-
 @{
     ViewBag.Title = "Eliminar Reserva";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 <style>
-.delete-container {
-    max-width: 550px;
-    margin: 2.6rem auto 0 auto;
-    background: #fff;
-    border-radius: 1.1rem;
-    box-shadow: 0 8px 32px #ffb6b933, 0 2px 12px #ae3b6222;
-    padding: 2.3rem 2.1rem 1.7rem 2.1rem;
-    position: relative;
-    z-index: 2;
-    text-align: center;
-}
-.delete-title {
-    font-weight: 800;
-    font-size: 2rem;
-    color: #ae3b62;
-    margin-bottom: .6rem;
-    letter-spacing: 0.01em;
-}
-.delete-warning {
-    color: #d8004d;
-    font-size: 1.12rem;
-    font-weight: 700;
-    margin-bottom: 2rem;
-}
-.reserva-info-list dt {
-    color: #ae3b62;
-    font-weight: 700;
-    font-size: 1.06rem;
-    margin-bottom: 0;
-}
-.reserva-info-list dd {
-    color: #7c7474;
-    margin-bottom: .7rem;
-    font-size: 1.04rem;
-}
-.btn-eliminar {
-    background: linear-gradient(45deg, #ff7b9b 60%, #ffb6b9 100%);
-    color: #fff;
-    font-weight: 700;
-    padding: 0.7rem 2.2rem;
-    border-radius: 1.1rem;
-    border: none;
-    font-size: 1.04rem;
-    margin-right: 1rem;
-    box-shadow: 0 2px 9px #ffb6b933;
-    transition: background 0.18s, box-shadow 0.18s;
-}
-.btn-eliminar:hover {
-    background: linear-gradient(45deg, #ae3b62 60%, #ffb6b9 100%);
-    color: #fff;
-}
-.back-link {
-    color: #ae3b62;
-    font-weight: 600;
-    text-decoration: none;
-    margin-left: 1rem;
-    transition: color .18s;
-}
-.back-link:hover {
-    color: #ff7b9b;
-    text-decoration: underline;
-}
-@@media (max-width: 700px) {
-    .delete-container { padding: 1.2rem 0.3rem; }
-    .delete-title { font-size: 1.3rem;}
-}
-</style>
+    .reserva-delete-container {
+        max-width: 570px;
+        margin: 2.7rem auto 0 auto;
+        background: #fff;
+        border-radius: 0.75rem;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        padding: 2.5rem 2.2rem 2rem 2.2rem;
+    }
 
-<div class="delete-container">
-    <div class="delete-title"><i class="fas fa-trash-alt"></i> Eliminar Reserva</div>
-    <div class="delete-warning">
-        ¿Estás seguro que deseas eliminar esta reserva?
+    .reserva-delete-title {
+        color: #dc2626;
+        font-size: 1.875rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+        text-align: center;
+        letter-spacing: -0.01em;
+    }
+
+    .reserva-delete-subtitle {
+        color: #6b7280;
+        font-size: 1rem;
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+
+    .delete-dl {
+        background: #f9fafb;
+        border-radius: 0.5rem;
+        border: 1px solid #e5e7eb;
+        padding: 1.2rem 1.5rem;
+        margin-bottom: 2rem;
+    }
+
+        .delete-dl dt {
+            font-weight: 600;
+            color: #374151;
+            margin-top: 0.75rem;
+            font-size: 0.875rem;
+        }
+
+            .delete-dl dt:first-child {
+                margin-top: 0;
+            }
+
+        .delete-dl dd {
+            color: #6b7280;
+            font-size: 0.95rem;
+            margin-bottom: 0.25rem;
+            margin-left: 0;
+        }
+
+    .reserva-delete-btns {
+        display: flex;
+        gap: 0.75rem;
+        margin-top: 2rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid #f3f4f6;
+    }
+
+    .btn-reserva-delete {
+        background: #dc2626;
+        color: #fff;
+        font-weight: 600;
+        padding: 0.7rem 1.75rem;
+        border-radius: 0.5rem;
+        border: none;
+        font-size: 0.95rem;
+        box-shadow: 0 1px 3px rgba(220,38,38,0.2);
+        transition: all 0.2s ease;
+        cursor: pointer;
+        flex: 1;
+    }
+
+        .btn-reserva-delete:hover {
+            background: #b91c1c;
+            box-shadow: 0 2px 6px rgba(220,38,38,0.3);
+        }
+
+        .btn-reserva-delete i {
+            margin-right: 0.5rem;
+        }
+
+    .reserva-back-link {
+        color: #6b7280;
+        font-weight: 500;
+        text-decoration: none;
+        padding: 0.7rem 1.75rem;
+        border: 1px solid #d1d5db;
+        border-radius: 0.5rem;
+        background: #ffffff;
+        transition: all 0.15s ease;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        flex: 1;
+    }
+
+        .reserva-back-link:hover {
+            background: #f9fafb;
+            border-color: #9ca3af;
+            color: #374151;
+            text-decoration: none;
+        }
+
+        .reserva-back-link i {
+            margin-right: 0.5rem;
+        }
+</style>
+<div class="reserva-delete-container">
+    <div class="reserva-delete-title">¿Eliminar Reserva?</div>
+    <div class="reserva-delete-subtitle">
+        ¿Estás seguro que deseas eliminar esta reserva?<br>
+        <span style="color:#dc2626;">Esta acción no se puede deshacer.</span>
     </div>
-    <dl class="reserva-info-list text-start" style="margin:0 auto 1.5rem auto; max-width:420px;">
-        <dt>Nombres</dt>
+    <dl class="delete-dl">
+        <dt>Usuario</dt>
         <dd>@Model.Usuario.Nombres @Model.Usuario.Apellidos</dd>
         <dt>Zona</dt>
         <dd>@Model.Zona</dd>
@@ -93,11 +132,16 @@
         <dt>Número de Invitados</dt>
         <dd>@Model.NumInvitados</dd>
     </dl>
-
     @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()
-        <button type="submit" class="btn-eliminar"><i class="fas fa-trash"></i> Eliminar</button>
-        <a href="@Url.Action("Index", "Reservas")" class="back-link"><i class="fas fa-arrow-left"></i> Volver a la lista</a>
+        <div class="reserva-delete-btns">
+            <a href="@Url.Action("Index", "Reservas")" class="reserva-back-link">
+                <i class="fas fa-arrow-left"></i> Cancelar
+            </a>
+            <button type="submit" class="btn-reserva-delete">
+                <i class="fas fa-trash-alt"></i> Eliminar
+            </button>
+        </div>
     }
 </div>

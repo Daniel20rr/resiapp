@@ -1,67 +1,131 @@
 ﻿@model ResiApp.Models.Reserva
-
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Detalle Reserva";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<style>
+    .reserva-detail-container {
+        max-width: 570px;
+        margin: 2.7rem auto 0 auto;
+        background: #fff;
+        border-radius: 0.75rem;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        padding: 2.5rem 2.2rem 2rem 2.2rem;
+    }
 
-<h2>Details</h2>
+    .reserva-detail-title {
+        color: #1a202c;
+        font-size: 1.875rem;
+        font-weight: 700;
+        margin-bottom: 1.5rem;
+        text-align: center;
+        letter-spacing: -0.01em;
+    }
 
-<div>
-    <h4>Reserva</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Usuario.Nombres)
-        </dt>
+    .detail-dl {
+        background: #f9fafb;
+        border-radius: 0.5rem;
+        border: 1px solid #e5e7eb;
+        padding: 1.2rem 1.5rem;
+        margin-bottom: 2rem;
+    }
 
-        <dd>
-            @Html.DisplayFor(model => model.Usuario.Nombres)
-        </dd>
+        .detail-dl dt {
+            font-weight: 600;
+            color: #374151;
+            margin-top: 0.75rem;
+            font-size: 0.875rem;
+        }
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Zona)
-        </dt>
+            .detail-dl dt:first-child {
+                margin-top: 0;
+            }
 
-        <dd>
-            @Html.DisplayFor(model => model.Zona)
-        </dd>
+        .detail-dl dd {
+            color: #6b7280;
+            font-size: 0.95rem;
+            margin-bottom: 0.25rem;
+            margin-left: 0;
+        }
 
-        <dt>
-            @Html.DisplayNameFor(model => model.FechaReserva)
-        </dt>
+    .reserva-detail-btns {
+        display: flex;
+        gap: 0.75rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid #f3f4f6;
+    }
 
-        <dd>
-            @Html.DisplayFor(model => model.FechaReserva)
-        </dd>
+    .btn-detail-edit {
+        background: #eff6ff;
+        color: #2563eb;
+        border: 1px solid #bfdbfe;
+        font-weight: 600;
+        padding: 0.7rem 1.75rem;
+        border-radius: 0.5rem;
+        font-size: 0.95rem;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        flex: 1;
+        justify-content: center;
+        transition: all 0.15s ease;
+    }
 
-        <dt>
-            @Html.DisplayNameFor(model => model.HoraInicio)
-        </dt>
+        .btn-detail-edit:hover {
+            background: #dbeafe;
+            color: #1d4ed8;
+            text-decoration: none;
+        }
 
-        <dd>
-            @Html.DisplayFor(model => model.HoraInicio)
-        </dd>
+    .reserva-back-link {
+        color: #6b7280;
+        font-weight: 500;
+        text-decoration: none;
+        padding: 0.7rem 1.75rem;
+        border: 1px solid #d1d5db;
+        border-radius: 0.5rem;
+        background: #ffffff;
+        transition: all 0.15s ease;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        flex: 1;
+    }
 
-        <dt>
-            @Html.DisplayNameFor(model => model.HoraFin)
-        </dt>
+        .reserva-back-link:hover {
+            background: #f9fafb;
+            border-color: #9ca3af;
+            color: #374151;
+            text-decoration: none;
+        }
 
-        <dd>
-            @Html.DisplayFor(model => model.HoraFin)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.NumInvitados)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.NumInvitados)
-        </dd>
-
+        .reserva-back-link i {
+            margin-right: 0.5rem;
+        }
+</style>
+<div class="reserva-detail-container">
+    <div class="reserva-detail-title">Detalle de Reserva</div>
+    <dl class="detail-dl">
+        <dt>Usuario</dt>
+        <dd>@Model.Usuario.Nombres @Model.Usuario.Apellidos</dd>
+        <dt>Zona</dt>
+        <dd>@Model.Zona</dd>
+        <dt>Fecha de Reserva</dt>
+        <dd>@Model.FechaReserva.ToString("dd/MM/yyyy")</dd>
+        <dt>Hora de Inicio</dt>
+        <dd>@Model.HoraInicio</dd>
+        <dt>Hora de Finalización</dt>
+        <dd>@Model.HoraFin</dd>
+        <dt>Número de Invitados</dt>
+        <dd>@Model.NumInvitados</dd>
     </dl>
+    <div class="reserva-detail-btns">
+        <a href="@Url.Action("Index", "Reservas")" class="reserva-back-link">
+            <i class="fas fa-arrow-left"></i> Volver
+        </a>
+        <a href="@Url.Action("Edit", "Reservas", new { id = Model.IdReserva })" class="btn-detail-edit">
+            <i class="fas fa-edit"></i> Editar
+        </a>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.IdReserva }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>

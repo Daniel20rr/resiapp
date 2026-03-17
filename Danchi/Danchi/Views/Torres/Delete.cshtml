@@ -1,101 +1,139 @@
 ﻿@model ResiApp.Models.Torre
-
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = "Eliminar Torre";
 }
-
 <style>
     .torre-delete-container {
-        max-width: 540px;
-        margin: 2.5rem auto;
+        max-width: 570px;
+        margin: 2.7rem auto 0 auto;
         background: #fff;
-        border-radius: 1.5rem;
-        box-shadow: 0 6px 32px #ebb3b370, 0 2px 14px #f8b6b938;
-        padding: 2.3rem 1.7rem 2rem 1.7rem;
-        text-align: center;
+        border-radius: 0.75rem;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+        padding: 2.5rem 2.2rem 2rem 2.2rem;
     }
 
     .torre-delete-title {
-        color: #ce466d;
-        font-size: 1.7rem;
-        font-weight: 800;
-        margin-bottom: 0.6rem;
+        color: #dc2626;
+        font-size: 1.875rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+        text-align: center;
+        letter-spacing: -0.01em;
     }
 
     .torre-delete-subtitle {
-        color: #8a6d6d;
-        font-size: 1.11rem;
-        margin-bottom: 2.2rem;
+        color: #6b7280;
+        font-size: 1rem;
+        text-align: center;
+        margin-bottom: 2rem;
     }
 
     .delete-dl {
+        background: #f9fafb;
+        border-radius: 0.5rem;
+        border: 1px solid #e5e7eb;
+        padding: 1.2rem 1.5rem;
+        margin-bottom: 2rem;
         text-align: left;
-        margin-bottom: 2.1rem;
     }
 
         .delete-dl dt {
-            font-weight: 700;
-            color: #ad7b7b;
-            margin-top: 0.7rem;
+            font-weight: 600;
+            color: #374151;
+            margin-top: 0.75rem;
+            font-size: 0.875rem;
         }
+
+            .delete-dl dt:first-child {
+                margin-top: 0;
+            }
 
         .delete-dl dd {
-            margin-bottom: 0.5rem;
-            color: #7c7474;
-            font-size: 1.05rem;
+            color: #6b7280;
+            font-size: 0.95rem;
+            margin-bottom: 0.25rem;
         }
 
-    .btn-delete-torre {
-        background: linear-gradient(45deg, #ff7b9b 60%, #ebb3b3 100%);
+    .torre-delete-btns {
+        display: flex;
+        gap: 0.75rem;
+        margin-top: 2rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid #f3f4f6;
+    }
+
+    .btn-torre-delete {
+        background: #dc2626;
         color: #fff;
-        font-weight: 700;
-        padding: 0.72rem 2.1rem;
-        border-radius: 1.1rem;
+        font-weight: 600;
+        padding: 0.7rem 1.75rem;
+        border-radius: 0.5rem;
         border: none;
-        font-size: 1.07rem;
-        box-shadow: 0 2px 9px #ebb3b333;
-        margin-right: 0.5rem;
-        transition: background 0.2s;
+        font-size: 0.95rem;
+        box-shadow: 0 1px 3px rgba(220, 38, 38, 0.2);
+        transition: all 0.2s ease;
+        cursor: pointer;
+        flex: 1;
     }
 
-        .btn-delete-torre:hover {
-            background: linear-gradient(45deg, #ce466d 70%, #ebb3b3 100%);
+        .btn-torre-delete:hover {
+            background: #b91c1c;
+            box-shadow: 0 2px 6px rgba(220, 38, 38, 0.3);
         }
 
-    .back-link {
-        color: #ad7b7b;
-        font-weight: 600;
+        .btn-torre-delete i {
+            margin-right: 0.5rem;
+        }
+
+    .torre-back-link {
+        color: #6b7280;
+        font-weight: 500;
         text-decoration: none;
-        margin-left: 1.1rem;
+        padding: 0.7rem 1.75rem;
+        border: 1px solid #d1d5db;
+        border-radius: 0.5rem;
+        background: #ffffff;
+        transition: all 0.15s ease;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        flex: 1;
     }
 
-        .back-link:hover {
-            color: #ff7b9b;
-            text-decoration: underline;
+        .torre-back-link:hover {
+            background: #f9fafb;
+            border-color: #9ca3af;
+            color: #374151;
+            text-decoration: none;
+        }
+
+        .torre-back-link i {
+            margin-right: 0.5rem;
         }
 </style>
-
 <div class="torre-delete-container">
     <div class="torre-delete-title">¿Eliminar Torre?</div>
     <div class="torre-delete-subtitle">
         ¿Estás seguro que deseas eliminar esta torre?<br>
-        <span style="color: #b35e5e;">Esta acción no se puede deshacer.</span>
+        <span style="color:#dc2626;">Esta acción no se puede deshacer.</span>
     </div>
-
     <dl class="delete-dl">
         <dt>@Html.DisplayNameFor(model => model.NombreTorre)</dt>
         <dd>@Html.DisplayFor(model => model.NombreTorre)</dd>
         <dt>@Html.DisplayNameFor(model => model.FechaCreacion)</dt>
         <dd>@Html.DisplayFor(model => model.FechaCreacion)</dd>
     </dl>
-
     @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()
-        <button type="submit" class="btn-delete-torre">
-            <i class="fas fa-trash-alt"></i> Eliminar
-        </button>
-        <a href="@Url.Action("Index", "Torres")" class="back-link"><i class="fas fa-arrow-left"></i> Volver al listado</a>
+        <div class="torre-delete-btns">
+            <a href="@Url.Action("Index", "Torres")" class="torre-back-link">
+                <i class="fas fa-arrow-left"></i> Cancelar
+            </a>
+            <button type="submit" class="btn-torre-delete">
+                <i class="fas fa-trash-alt"></i> Eliminar
+            </button>
+        </div>
     }
 </div>
