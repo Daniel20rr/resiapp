@@ -1,0 +1,224 @@
+﻿@model ResiApp.Models.BandejaViewModel
+@{
+    ViewBag.Title = "Bandeja de Mensajes";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!-- ESTILOS PARA LA BANDEJA -->
+<style>
+    .msg-container {
+        max-width: 1000px;
+        margin: 2.5rem auto;
+        background: #fff;
+        border-radius: 1.3rem;
+        box-shadow: 0 4px 24px #ebb3b370, 0 1.5px 12px #f8b6b938;
+        padding: 2.7rem 2.2rem 2.4rem 2.2rem;
+    }
+
+    .msg-title {
+        text-align: center;
+        color: #8a6d6d;
+        font-size: 2rem;
+        font-weight: 700;
+        margin-bottom: 2rem;
+    }
+
+    .btn-rosa {
+        background: linear-gradient(45deg, #ff7b9b 60%, #ebb3b3 100%);
+        color: #fff !important;
+        font-weight: 700;
+        border-radius: 1.1rem;
+        border: none;
+        padding: 0.65rem 2rem;
+        font-size: 1.08rem;
+        box-shadow: 0 1.5px 10px #ffb6b933;
+        transition: background 0.2s;
+        margin-bottom: 1rem;
+    }
+    .btn-rosa:hover {
+        background: linear-gradient(45deg, #ce466d 60%, #ebb3b3 100%);
+        color: #fff !important;
+    }
+    .btn-mini {
+        padding: 0.38rem 1.2rem !important;
+        font-size: 0.97rem !important;
+        margin-right: 0.3rem;
+    }
+
+    .msg-tabs {
+        display: flex;
+        gap: 1rem;
+        margin-bottom: 1.6rem;
+        justify-content: center;
+    }
+    .msg-tab {
+        background: #f9f8f8;
+        color: #ae3b62;
+        border-radius: 1.1rem 1.1rem 0 0;
+        border: 1.5px solid #ead8e4;
+        padding: 0.6rem 2rem;
+        font-weight: 600;
+        box-shadow: 0 0.5px 4px #ffb6b920;
+        cursor: pointer;
+        transition: background 0.2s, color 0.2s;
+        border-bottom: 2.5px solid transparent;
+    }
+    .msg-tab.active, .msg-tab:hover {
+        background: #ffe3ea;
+        color: #ce466d;
+        border-bottom: 2.5px solid #ffb6b9;
+    }
+
+    .msg-table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0;
+        background: #f9f8f8;
+        border-radius: 1.1rem;
+        overflow: hidden;
+        box-shadow: 0 2px 12px #ffb6b920;
+    }
+    .msg-table th, .msg-table td {
+        padding: 1rem 1.2rem;
+        text-align: left;
+        font-size: 1.04rem;
+        color: #6d5a5a;
+        border-bottom: 1.5px solid #ead8e4;
+        background: #f9f8f8;
+    }
+    .msg-table th {
+        background: #ffe3ea;
+        color: #ae3b62;
+        font-weight: 700;
+    }
+    .msg-table tr:last-child td {
+        border-bottom: none;
+    }
+    .msg-leido {
+        color: #21bf73;
+        font-weight: 600;
+    }
+    .msg-noleido {
+        color: #ce466d;
+        font-weight: 600;
+    }
+    @@media (max-width: 800px) {
+        .msg-container { padding: 1rem 0.4rem; }
+        .msg-title { font-size: 1.3rem; }
+        .msg-table th, .msg-table td { padding: 0.6rem 0.3rem; font-size: 0.93rem; }
+    }
+</style>
+
+<div class="msg-container">
+    <div class="msg-title">Bandeja de Mensajes</div>
+    <div style="display:flex; justify-content: space-between; align-items:center; margin-bottom:1.1rem;">
+        <div>
+            <a href="@Url.Action("Create", "Mensajes")" class="btn-rosa">
+                <i class="fas fa-paper-plane"></i> Nuevo Mensaje
+            </a>
+        </div>
+    </div>
+
+    <!-- Tabs -->
+    <div class="msg-tabs">
+        <button class="msg-tab active" onclick="showTab('recibidos')">Recibidos</button>
+        <button class="msg-tab" onclick="showTab('enviados')">Enviados</button>
+    </div>
+
+    <!-- Recibidos -->
+    <div id="recibidos" class="tab-content-msg">
+        @if (Model.Recibidos != null && Model.Recibidos.Any())
+        {
+            <div style="overflow-x:auto;">
+                <table class="msg-table">
+                    <thead>
+                        <tr>
+                            <th>De</th>
+                            <th>Asunto</th>
+                            <th>Fecha</th>
+                            <th>Leído</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var msg in Model.Recibidos)
+                        {
+                            <tr>
+                                <td>@(msg.Emisor.Nombres + " " + msg.Emisor.Apellidos) </td>
+                                <td>@msg.Asunto</td>
+                                <td>@msg.FechaEnvio.ToString("dd/MM/yyyy")</td>
+                                <td>
+                                    @if (msg.Leido)
+                                    {
+                                        <span class="msg-leido"><i class="fas fa-check-circle"></i> Leído</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="msg-noleido"><i class="fas fa-envelope"></i> No leído</span>
+                                    }
+                                </td>
+                                <td>
+                                    @Html.ActionLink("Ver", "Details", new { id = msg.IdMensaje }, new { @class = "btn-rosa btn-mini" })
+                                    @Html.ActionLink("Responder", "Reply", new { id = msg.IdMensaje }, new { @class = "btn-rosa btn-mini" })
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+        else
+        {
+            <div class="alert alert-info">No tienes mensajes recibidos.</div>
+        }
+    </div>
+
+    <!-- Enviados -->
+    <div id="enviados" class="tab-content-msg" style="display:none;">
+        @if (Model.Enviados != null && Model.Enviados.Any())
+        {
+            <div style="overflow-x:auto;">
+                <table class="msg-table">
+                    <thead>
+                        <tr>
+                            <th>Para</th>
+                            <th>Asunto</th>
+                            <th>Fecha</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var msg in Model.Enviados)
+                        {
+                            <tr>
+                                <td>@(msg.Receptor.Nombres + " " + msg.Receptor.Apellidos) </td>
+                                <td>@msg.Asunto</td>
+                                <td>@msg.FechaEnvio.ToString("dd/MM/yyyy")</td>
+                                <td>
+                                    @Html.ActionLink("Ver", "Details", new { id = msg.IdMensaje }, new { @class = "btn-rosa btn-mini" })
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+        else
+        {
+            <div class="alert alert-info">No has enviado mensajes.</div>
+        }
+    </div>
+</div>
+
+<script>
+    // Tabs funcionales (sin Bootstrap JS)
+    function showTab(tab) {
+        document.getElementById("recibidos").style.display = tab === "recibidos" ? "" : "none";
+        document.getElementById("enviados").style.display = tab === "enviados" ? "" : "none";
+        let tabs = document.getElementsByClassName("msg-tab");
+        for (let i = 0; i < tabs.length; i++) {
+            tabs[i].classList.remove("active");
+        }
+        if (tab === "recibidos") tabs[0].classList.add("active");
+        if (tab === "enviados") tabs[1].classList.add("active");
+    }
+</script>

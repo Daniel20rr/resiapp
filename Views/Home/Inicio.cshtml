@@ -1,0 +1,89 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <title>Bienvenidos a ResiApp</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <style>
+        /* Estilos base */
+        html, body {
+            height: 100%;
+            margin: 0;
+            font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+        }
+
+        /* Contenedor principal con imagen de fondo */
+        .hero-container {
+            height: 100vh;
+            background-image: url('/Content/images/inicio-background.jpg');
+            background-size: cover;
+            background-position: center center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Caja de contenido profesional */
+        .hero-content {
+            text-align: center;
+            color: white;
+            background-color: rgba(26, 32, 44, 0.85); /* Gris oscuro profesional */
+            padding: 50px 40px;
+            border-radius: 12px;
+            max-width: 650px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+            .hero-content h1 {
+                font-size: 3rem;
+                font-weight: 700;
+                margin-bottom: 0.8rem;
+                letter-spacing: -0.5px;
+            }
+
+            .hero-content p {
+                font-size: 1.25rem;
+                margin-bottom: 2rem;
+                color: #e2e8f0; /* Gris claro para mejor legibilidad */
+                line-height: 1.6;
+            }
+
+        /* Botón profesional con azul corporativo */
+        .btn-portal {
+            background-color: #2563eb; /* Azul profesional */
+            border: none;
+            color: white;
+            padding: 14px 40px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 8px;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+        }
+
+            .btn-portal:hover {
+                background-color: #1d4ed8; /* Azul más oscuro */
+                color: white;
+                text-decoration: none;
+                transform: translateY(-2px);
+                box-shadow: 0 6px 16px rgba(37, 99, 235, 0.4);
+            }
+    </style>
+</head>
+<body>
+    <div class="hero-container">
+        <div class="hero-content">
+            <h1>Bienvenido a ResiApp</h1>
+            <p>La solución integral para optimizar la gestión y fortalecer la comunicación en tu Propiedad Horizontal.</p>
+            <a href="@Url.Action("Login", "Account")" class="btn-portal">Inicio Sesión</a>
+        </div>
+    </div>
+</body>
+</html>

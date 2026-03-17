@@ -1,0 +1,80 @@
+﻿@model ResiApp.Models.Mensaje
+
+@{
+    ViewBag.Title = "Crear Mensaje";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .mensaje-form-container {
+        max-width: 480px;
+        margin: 2.5rem auto;
+        background: #fff;
+        border-radius: 1.3rem;
+        box-shadow: 0 4px 24px #ebb3b370, 0 1.5px 12px #f8b6b938;
+        padding: 2.7rem 2.2rem 2.4rem 2.2rem;
+    }
+    .mensaje-form-title {
+        text-align: center;
+        color: #ae3b62;
+        font-size: 2rem;
+        font-weight: 700;
+        margin-bottom: 2.3rem;
+    }
+    .form-group {
+        margin-bottom: 1.4rem;
+        display: flex;
+        flex-direction: column;
+        gap: .2rem;
+    }
+    .form-control {
+        border-radius: 1rem !important;
+        border: 1.5px solid #ead8e4 !important;
+        font-size: 1.08rem;
+        padding: 0.9rem 1.2rem !important;
+        background: #f9f8f8 !important;
+        color: #7c7474;
+        width: 100% !important;
+        box-sizing: border-box;
+    }
+    .form-control:focus {
+        border-color: #ffb6b9 !important;
+        background: #fff !important;
+        box-shadow: 0 2px 10px #ffb6b938;
+    }
+</style>
+
+<div class="mensaje-form-container">
+    <div class="mensaje-form-title">Enviar Mensaje</div>
+    @using (Html.BeginForm("Create", "Mensajes", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-group">
+            @Html.LabelFor(model => model.IdReceptor)
+            @Html.DropDownList("IdReceptor", null, "Seleccione un receptor", new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.IdReceptor, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Asunto)
+            @Html.TextBoxFor(model => model.Asunto, new { @class = "form-control", placeholder = "Asunto..." })
+            @Html.ValidationMessageFor(model => model.Asunto, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Descripcion)
+            @Html.TextAreaFor(model => model.Descripcion, new { @class = "form-control", rows = 5, placeholder = "Escribe tu mensaje..." })
+            @Html.ValidationMessageFor(model => model.Descripcion, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.ArchivoAdjunto, "Archivo Adjunto (Opcional)")
+            <input type="file" name="archivo" class="form-control" accept=".pdf,application/pdf" />
+        </div>
+        <button type="submit" class="btn btn-rosa">
+            <i class="fas fa-paper-plane"></i> Enviar
+        </button>
+    }
+    <div>
+        <a href="@Url.Action("Index", "Mensajes")" class="back-link">
+            <i class="fas fa-arrow-left"></i> Volver a la bandeja
+        </a>
+    </div>
+</div>
