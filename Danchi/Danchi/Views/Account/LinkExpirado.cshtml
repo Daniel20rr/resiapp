@@ -1,0 +1,10 @@
+﻿@{ ViewBag.Title = "Enlace Inválido"; }
+
+<div class="container" style="max-width:450px; margin-top:60px;">
+    <div class="alert alert-danger">
+        <h4>⚠️ Enlace inválido o expirado</h4>
+        <p>El enlace de recuperación ya no es válido. Puede que haya expirado o ya fue usado.</p>
+    </div>
+    @Html.ActionLink("Solicitar nuevo enlace", "ForgotPassword", "Account",
+                     null, new { @class = "btn btn-primary" })
+</div>

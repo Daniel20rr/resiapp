@@ -45,7 +45,7 @@ namespace ResiApp.Controllers
         [AllowAnonymous]
         public ActionResult Login()
         {
-            return View(new Login()); // ← CAMBIO APLICADO
+            return View(new Login());
         }
 
         [HttpPost]
@@ -230,6 +230,99 @@ namespace ResiApp.Controllers
             await _db.SaveChangesAsync();
             TempData["SuccessMessage"] = "Usuario eliminado correctamente";
             return RedirectToAction("Index");
+        }
+
+        // ════════════════════════════════════════════════════════════════
+        //  RECUPERACIÓN DE CONTRASEÑA
+        // ════════════════════════════════════════════════════════════════
+
+        [HttpGet]
+        [AllowAnonymous]
+        public ActionResult ForgotPassword() => View();
+
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public ActionResult ForgotPassword(string correo, string telefono)
+        {
+            if (string.IsNullOrWhiteSpace(correo) || string.IsNullOrWhiteSpace(telefono))
+            {
+                ViewBag.Error = "Por favor ingresa todos los campos.";
+                return View();
+            }
+
+            var usuario = _db.Usuarios
+                             .FirstOrDefault(u => u.Correo == correo
+                                               && u.Telefono == telefono);
+
+            if (usuario == null)
+            {
+                ViewBag.Error = "El correo o número de celular no coinciden con ningún usuario registrado.";
+                return View();
+            }
+
+            Session["RecuperacionUsuarioId"] = usuario.IdUsuario;
+            return RedirectToAction("ResetPassword");
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public ActionResult ResetPassword()
+        {
+            if (Session["RecuperacionUsuarioId"] == null)
+                return RedirectToAction("ForgotPassword");
+
+            return View();
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public ActionResult ResetPassword(string nuevaContrasena, string confirmarContrasena)
+        {
+            if (Session["RecuperacionUsuarioId"] == null)
+                return RedirectToAction("ForgotPassword");
+
+            if (string.IsNullOrWhiteSpace(nuevaContrasena) || string.IsNullOrWhiteSpace(confirmarContrasena))
+            {
+                ViewBag.Error = "Por favor ingresa todos los campos.";
+                return View();
+            }
+
+            if (nuevaContrasena != confirmarContrasena)
+            {
+                ViewBag.Error = "Las contraseñas no coinciden.";
+                return View();
+            }
+
+            if (nuevaContrasena.Length < 6)
+            {
+                ViewBag.Error = "La contraseña debe tener al menos 6 caracteres.";
+                return View();
+            }
+
+            int usuarioId = (int)Session["RecuperacionUsuarioId"];
+            var usuario = _db.Usuarios.Find(usuarioId);
+
+            if (usuario == null)
+            {
+                ViewBag.Error = "Usuario no encontrado.";
+                return RedirectToAction("ForgotPassword");
+            }
+
+            var hashes = new List<byte[]>();
+            usuario.Contrasena = _passwordEncripter.Encript(nuevaContrasena, out hashes);
+            usuario.HashKey = hashes[0];
+            usuario.HashIV = hashes[1];
+            usuario.FechaModificacion = DateTime.Now;
+            usuario.UsuarioModificacion = usuario.IdUsuario;
+
+            _db.SaveChanges();
+
+            Session.Remove("RecuperacionUsuarioId");
+
+            TempData["SuccessMessage"] = "¡Contraseña actualizada correctamente! Ya puedes iniciar sesión.";
+            return RedirectToAction("Login");
         }
 
         protected override void Dispose(bool disposing)

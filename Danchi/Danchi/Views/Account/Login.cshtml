@@ -181,26 +181,29 @@
         {
             using (Html.BeginForm("Login", "Account", FormMethod.Post, new { @autocomplete = "off" }))
             {
-                @Html.AntiForgeryToken()
-                @Html.ValidationSummary(true, "", new { @class = "alert-danger" })
-                <div class="form-group">
-                    <i class="fas fa-envelope form-icon"></i>
-                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control-user", placeholder = "Correo electrónico", autofocus = "autofocus" })
-                    @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
-                </div>
-                <div class="form-group">
-                    <i class="fas fa-lock form-icon"></i>
-                    @Html.PasswordFor(m => m.Password, new { @class = "form-control-user", placeholder = "Contraseña", id = "password" })
-                    @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
-                </div>
-                <button type="submit" class="btn-user">
-                    <i class="fas fa-sign-in-alt"></i> Iniciar sesión
-                </button>
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "", new { @class = "alert-danger" })
+        <div class="form-group">
+            <i class="fas fa-envelope form-icon"></i>
+            @Html.TextBoxFor(m => m.Email, new { @class = "form-control-user", placeholder = "Correo electrónico", autofocus = "autofocus" })
+            @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            <i class="fas fa-lock form-icon"></i>
+            @Html.PasswordFor(m => m.Password, new { @class = "form-control-user", placeholder = "Contraseña", id = "password" })
+            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+        </div>
+        <button type="submit" class="btn-user">
+            <i class="fas fa-sign-in-alt"></i> Iniciar sesión
+        </button>
+        <div class="text-center" style="margin-top:10px;">
+            @Html.ActionLink("¿Olvidaste tu contraseña?", "ForgotPassword", "Account")
+        </div>
             }
         }
         else
         {
-            <p style="color:#dc2626;text-align:center;">Error al cargar el formulario. Por favor recarga la página.</p>
+        <p style="color:#dc2626;text-align:center;">Error al cargar el formulario. Por favor recarga la página.</p>
         }
 
         <div class="login-footer">&copy; @DateTime.Now.Year - ResiApp</div>
